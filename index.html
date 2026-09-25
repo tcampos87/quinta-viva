@@ -240,6 +240,80 @@ input,select,textarea{font-family:inherit;color:var(--ink);background:var(--surf
 @media(hover:hover){.kbx-gcard:hover{transform:translateY(-3px);box-shadow:var(--shadow)}}
 .kbx-gimg{position:relative;display:block;height:120px;background:var(--kb-g);overflow:hidden}
 .kbx-gbody{display:block;padding:12px 14px 14px}
+/* ===== Percurso de aprendizagem ===== */
+.kbx-bar{position:absolute;left:0;bottom:0;height:4px;background:#5FBE71;border-radius:0 4px 4px 0;z-index:3}
+.kbx-strip{display:flex;align-items:center;gap:14px;padding:12px 16px;margin-bottom:14px;border-radius:16px;background:var(--surface);border:1px solid var(--border);cursor:pointer;box-shadow:var(--shadow)}
+.kbx-strip:hover{border-color:var(--green-500)}
+.kbp-ring{flex:none}
+.kbp-top{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;margin-bottom:16px}
+.kbp-hero{display:flex;gap:22px;align-items:center;padding:22px}
+.kbp-ringbox{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px}
+.kbp-ringcap{font-size:11.5px;color:var(--ink-faint)}
+.kbp-bar{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden;border:1px solid var(--border)}
+.kbp-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green-500),var(--green-600));border-radius:99px;transition:width .5s}
+.kbp-bar.light{background:rgba(255,255,255,.28);border:none}.kbp-bar.light i{background:#7FDB93}
+.kbp-stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.kbp-stat{display:flex;flex-direction:column;padding:8px 12px;border-radius:12px;background:var(--surface-2);min-width:98px}
+.kbp-stat b{font-family:'Fredoka',sans-serif;font-size:17px;font-weight:600}
+.kbp-stat i{font-style:normal;font-size:11px;color:var(--ink-faint)}
+.kbp-cont{position:relative;min-height:230px;border-radius:20px;overflow:hidden;color:#fff;background:var(--kb-g);cursor:pointer;box-shadow:var(--shadow);display:flex;align-items:flex-end}
+.kbp-cont .kbx-shade{background:linear-gradient(0deg,rgba(6,16,10,.9) 0%,rgba(6,16,10,.45) 55%,rgba(6,16,10,.1) 100%)}
+.kbp-cont-in{position:relative;z-index:1;padding:20px;width:100%}
+.kbp-cont-in h3{font-size:20px;line-height:1.15;margin:4px 0 10px;color:#fff}
+.kbp-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.kbp-h{font-size:16px;font-weight:600;margin:0 0 10px}
+.kbp-week{display:flex;gap:8px;align-items:flex-end;height:82px;margin-top:14px}
+.kbp-day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
+.kbp-day i{width:100%;max-width:34px;border-radius:6px;background:var(--surface-2);border:1px solid var(--border);display:block}
+.kbp-day i.on{background:var(--green-500);border-color:var(--green-500)}
+.kbp-day span{font-size:10.5px;color:var(--ink-faint)}
+.kbp-day.today span{color:var(--green-700);font-weight:700}
+.kbp-ach{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.kbp-badge{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;padding:10px 6px;border-radius:12px;background:var(--surface-2);filter:grayscale(1);opacity:.5}
+.kbp-badge.on{filter:none;opacity:1;background:var(--green-100)}
+.kbp-badge span{font-size:24px}
+.kbp-badge b{font-size:10.5px;line-height:1.2;color:var(--ink)}
+.kbp-sec{margin-top:26px}
+.kbp-sec > h3{font-size:19px;font-weight:600;margin:0 0 2px}
+.kbp-trails{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.kbx-row .kbp-trail{flex:none;width:290px;scroll-snap-align:start}
+.kbp-trail{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+@media(hover:hover){.kbp-trail:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(0,0,0,.16)}}
+.kbp-trail-img{position:relative;height:128px;background:var(--kb-g);overflow:hidden}
+.kbp-trail-ic{position:absolute;left:12px;bottom:8px;font-size:26px;z-index:2}
+.kbp-trail-body{padding:14px 14px 15px}
+.kbp-trail-body h4{font-size:16px;font-weight:600;margin:2px 0 4px}
+.kbp-trail-body p{font-size:12.5px;line-height:1.45;color:var(--ink-soft);margin:0 0 10px}
+.kbp-chip{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--surface-2);color:var(--ink-soft);white-space:nowrap}
+.kbp-chip.ok{background:var(--green-100);color:var(--green-700)}
+.kbp-chip.go{background:var(--yellow-100);color:var(--yellow-600)}
+.kbp-mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.kbp-mod{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:var(--kb-g);color:#fff;cursor:pointer;box-shadow:var(--shadow);transition:transform .2s}
+@media(hover:hover){.kbp-mod:hover{transform:translateY(-3px)}}
+.kbp-mod-ring{position:absolute;right:8px;top:8px;z-index:3;background:rgba(0,0,0,.45);border-radius:50%;display:flex}
+.kbp-mod-ring text{fill:#fff !important}
+.kbp-mod-ring circle:first-child{stroke:rgba(255,255,255,.3) !important}
+.kbp-member{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--border)}
+.kbp-member:first-child{border-top:none}
+.kbp-av{width:34px;height:34px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.kbx-syl{padding:6px}
+.kbx-lesson{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;cursor:pointer}
+.kbx-lesson:hover{background:var(--surface-2)}
+.kbx-lnum{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;background:var(--surface-2);color:var(--ink-soft)}
+.kbx-lesson.done .kbx-lnum{background:var(--green-600);color:var(--surface)}
+.kbx-lesson.next .kbx-lnum{border:2px solid var(--green-500);color:var(--green-700);background:transparent}
+.kbx-lthumb{position:relative;width:88px;height:56px;border-radius:10px;overflow:hidden;flex:none;background:var(--kb-g)}
+.kbx-linfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.kbx-linfo b{font-size:14px;font-weight:600;line-height:1.25}
+.kbx-linfo i{font-style:normal;font-size:11.5px;color:var(--ink-faint)}
+.kbx-lstate{font-size:12px;font-weight:600;color:var(--ink-faint);flex:none}
+.kbx-lesson.next .kbx-lstate,.kbx-lesson.done .kbx-lstate{color:var(--green-700)}
+.kbx-donecard{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:16px 18px;border-radius:16px;background:var(--surface-2);border:1px solid var(--border)}
+.kbx-donecard.done{background:var(--green-100);border-color:var(--green-500)}
+.kbx-toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:rgba(18,32,22,.96);color:#fff;padding:12px 18px;border-radius:14px;font-size:13.5px;line-height:1.5;z-index:95;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:opacity .3s,transform .3s;max-width:min(92vw,440px);text-align:center}
+.kbx-toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.kbp-top,.kbp-two{grid-template-columns:1fr}}
+@media(max-width:560px){.kbp-hero{flex-direction:column;align-items:flex-start}.kbx-lthumb{width:72px;height:48px}.kbx-lstate{display:none}}
 .kbx-prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:70;pointer-events:none}
 .kbx-prog i{display:block;height:3px;width:0;background:var(--green-500);border-radius:0 3px 3px 0;transition:width .1s linear}
 .kbx-lead > p:first-child{font-size:17px;line-height:1.7;color:var(--ink)}
@@ -492,8 +566,7 @@ function defaultDB(){
     pestDiagnoses: [], // {id,date,userId,cropId,cropName,symptoms,photo,matches:[{name,score}]}
     stockLevels: {}, // {'insumo:<id>'|'herbicida:<id>': {quantity,unit,lowThreshold,updatedAt}}
     stockMovements: [], // {id,date,kind:'insumo'|'herbicida',itemId,itemName,type:'entrada'|'saida'|'ajuste',quantity,unit,note,userId}
-    kbFav: [], // ids dos guias rápidos guardados como favoritos
-    kbRead: {}, // {idGuia: timestamp da última leitura}
+    kbP: {}, // progresso de aprendizagem por utilizador: {userId:{done,read,prog,days,fav,goal,ach}}
     brandLogo: null, // dataURL — logótipo da empresa que substitui "Quinta Viva" no cabeçalho e nas etiquetas QR
   };
 }
@@ -5455,12 +5528,14 @@ function renderAnalises(){
    Fotos em kb/g/<id>.webp (e kb/g/cat-<categoria>.webp); sem foto, o cartão
    mostra um degradê da categoria. Créditos das fotos em kb/g/credits.json.
    ========================================================================= */
-let kbMode = 'guias';
+let kbMode = 'guias';     // percurso | guias | biblioteca
 let kbxView = 'home';      // home | cat | article | search | favs
 let kbxCat = null;
 let kbxSel = null;
 let kbSearch = '';
-let kbxPrev = {view:'home', cat:null, scroll:0};
+let kbxPrev = {mode:'guias', view:'home', cat:null, trail:null, scroll:0};
+let kbxTrail = null;   // trilha aberta na vista 'trail'
+let kbxCtx = null;     // trilha de contexto do guia aberto (define aula anterior/seguinte)
 let kbxCredits = null;
 const KBX_MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const KBX_CAT_GRAD = {
@@ -5502,14 +5577,142 @@ function kbxImgKey(id){ return kbNorm(id); }
 function kbxCatOf(id){ return KB_CATEGORIES.find(c=>c.id===id); }
 function kbxIdsOf(cat){ return KNOWLEDGE.filter(a=>a.cat===cat).map(a=>a.id); }
 
-/* ---- Favoritos e lidos (guardados na base de dados da app) ---- */
-function kbxFavs(){ if(!Array.isArray(DB.kbFav)) DB.kbFav = []; return DB.kbFav; }
-function kbxIsFav(id){ return kbxFavs().includes(id); }
-function kbxMarkRead(id){ if(!DB.kbRead || typeof DB.kbRead!=='object') DB.kbRead = {}; DB.kbRead[id] = Date.now(); saveDB(); }
-function kbxRecentIds(){ const r = DB.kbRead || {}; return Object.keys(r).filter(id=>kbxArt(id)).sort((a,b)=>r[b]-r[a]).slice(0,10); }
+/* ---- Progresso de aprendizagem (por utilizador) ----
+   DB.kbP[userId] = {done:{id:ts}, read:{id:ts}, prog:{id:%}, days:{'AAAA-MM-DD':n}, fav:[ids], goal:n, ach:{id:ts}} */
+function kbxP(){
+  if(!DB.kbP || typeof DB.kbP!=='object') DB.kbP = {};
+  const u = activeUser();
+  let p = DB.kbP[u.id];
+  if(!p){
+    p = DB.kbP[u.id] = {done:{}, read:{}, prog:{}, days:{}, fav:[], goal:3, ach:{}};
+    // migra favoritos e leituras da versão anterior (eram globais) para o primeiro utilizador que abrir
+    if(!DB.kbMigrated){
+      if(DB.kbRead && typeof DB.kbRead==='object') Object.assign(p.read, DB.kbRead);
+      if(Array.isArray(DB.kbFav)) p.fav = DB.kbFav.slice();
+      DB.kbMigrated = true;
+    }
+  }
+  ['done','read','prog','days','ach'].forEach(k=>{ if(!p[k] || typeof p[k]!=='object') p[k] = {}; });
+  if(!Array.isArray(p.fav)) p.fav = [];
+  if(!p.goal) p.goal = 3;
+  return p;
+}
+let kbxSaveT = null;
+function kbxSaveSoon(){ clearTimeout(kbxSaveT); kbxSaveT = setTimeout(saveDB, 1200); }
+function kbxFavs(){ return kbxP().fav; }
+function kbxIsFav(id){ return kbxP().fav.includes(id); }
+function kbxDayKey(off){ const d = new Date(); d.setDate(d.getDate()-off); return dateISO(d); }
+function kbxMarkDay(p){ const k = kbxDayKey(0); p.days[k] = (p.days[k]||0) + 1; }
+function kbxMarkRead(id){ const p = kbxP(); p.read[id] = Date.now(); kbxMarkDay(p); saveDB(); }
+function kbxRecentIds(){ const r = kbxP().read; return Object.keys(r).filter(id=>kbxArt(id)).sort((a,b)=>r[b]-r[a]).slice(0,10); }
+function kbxIsDone(id){ return !!kbxP().done[id]; }
+function kbxDoneIds(p){ p = p || kbxP(); return Object.keys(p.done).filter(id=>kbxArt(id)); }
+function kbxCatProgress(cid, p){
+  p = p || kbxP(); const ids = kbxIdsOf(cid), d = ids.filter(id=>p.done[id]).length;
+  return {done:d, total:ids.length, pct:ids.length?Math.round(d*100/ids.length):0, next:ids.find(id=>!p.done[id])||null};
+}
+function kbxTrailProgress(t, p){
+  p = p || kbxP(); const ids = t.ids.filter(id=>kbxArt(id)), d = ids.filter(id=>p.done[id]).length;
+  const started = ids.some(id=>p.done[id] || p.read[id]);
+  return {done:d, total:ids.length, pct:ids.length?Math.round(d*100/ids.length):0, next:ids.find(id=>!p.done[id])||null, started};
+}
+function kbxStreak(p){
+  let n = 0, off = p.days[kbxDayKey(0)]>0 ? 0 : 1;
+  while(p.days[kbxDayKey(off)]>0 && n<3650){ n++; off++; }
+  return n;
+}
+function kbxBestStreak(p){
+  const ks = Object.keys(p.days).filter(k=>p.days[k]>0).sort();
+  let best = 0, cur = 0, prev = null;
+  ks.forEach(k=>{ const d = new Date(k+'T12:00:00'); if(prev && Math.round((d-prev)/86400000)===1) cur++; else cur = 1; prev = d; if(cur>best) best = cur; });
+  return best;
+}
+const KBX_LEVELS = [
+  {min:0, name:'Semente', icon:'🌱'}, {min:5, name:'Rebento', icon:'🌿'}, {min:15, name:'Arbusto', icon:'🪴'},
+  {min:30, name:'Árvore', icon:'🌳'}, {min:60, name:'Floresta', icon:'🌲'},
+];
+function kbxLevelInfo(n){
+  let i = 0; KBX_LEVELS.forEach((l,k)=>{ if(n>=l.min) i = k; });
+  const cur = KBX_LEVELS[i], nxt = KBX_LEVELS[i+1] || null;
+  return {cur, nxt, toNext: nxt ? nxt.min-n : 0, pct: nxt ? Math.round((n-cur.min)*100/(nxt.min-cur.min)) : 100};
+}
+const KBX_TRAILS = [
+  {id:'horta', icon:'🥕', title:'Começar a tua horta', cover:'kb-desenho-canteiros', desc:'Do solo à primeira colheita: o essencial para arrancar bem.',
+   ids:['kb-entender-a-terra','kb-desenho-canteiros','kb-compostagem-domestica','kb-sementeira-direta-alveolos','kb-transplante-mudas','kb-sistemas-rega','kb-cobertura-morta','kb-colheita-poscolheita']},
+  {id:'solo', icon:'🟤', title:'Solo vivo', cover:'kb-vida-do-solo', desc:'Perceber, alimentar e proteger a terra que sustenta tudo.',
+   ids:['kb-entender-a-terra','kb-vida-do-solo','kb-analise-solo','kb-compostagem-domestica','kb-adubacao-verde','kb-cobertura-morta','kb-erosao-do-solo']},
+  {id:'rega', icon:'💧', title:'Rega inteligente', cover:'kb-sistemas-rega', desc:'Regar melhor, gastar menos e aguentar a seca.',
+   ids:['kb-sistemas-rega','kb-calendarizacao-rega','kb-sinais-stress-hidrico','kb-captacao-agua-chuva','kb-gestao-seca-prolongada','kb-qualidade-agua-rega']},
+  {id:'agrofloresta', icon:'🌳', title:'Agrofloresta do zero', cover:'kb-estratos-guildas', desc:'Desenhar um sistema que produz, protege e regenera.',
+   ids:['kb-o-que-e-agrofloresta','kb-estratos-guildas','kb-sucessao-ecologica','kb-quebraventos-microclimas','kb-modelos-agrofloresta','kb-especies-estruturantes-portugal','kb-design-propriedade-zonas']},
+  {id:'pragas', icon:'🐛', title:'Pragas sem pânico', cover:'kb-controlo-biologico', desc:'Reconhecer, prevenir e controlar com equilíbrio.',
+   ids:['kb-identificacao-pragas-comuns','kb-armadilhas-monitorizacao','kb-controlo-biologico','kb-doencas-fungicas','kb-rotacao-pragas-solo','kb-receitas-caseiras-pragas','kb-herbicidas-ervas-daninhas']},
+  {id:'galinheiro', icon:'🐔', title:'Galinheiro saudável', cover:'kb-biosseguranca-galinheiro', desc:'Biossegurança, alimentação e sinais de alerta.',
+   ids:['kb-biosseguranca-galinheiro','kb-nutricao-galinhas','kb-sinais-galinha-doente','kb-doencas-comuns-galinhas','kb-prevencao-parasitas-aves','kb-descarte-animais-mortos']},
+  {id:'despensa', icon:'🫙', title:'Da horta à despensa', cover:'kb-conservas-vidro', desc:'Conservar a colheita com segurança e sabor.',
+   ids:['kb-colheita-poscolheita','kb-conservas-vidro','kb-secagem-desidratacao','kb-fermentacao-caseira','kb-conservas-vinagre-oleo','kb-congelacao-eficiente','kb-armazenamento-raizes-tuberculos']},
+  {id:'medicinais', icon:'🌿', title:'Plantas medicinais com segurança', cover:'kb-camomila-hortela-cidreira', desc:'Cultivar, preparar e saber quando não usar.',
+   ids:['kb-horta-medicinal','kb-camomila-hortela-cidreira','kb-secar-conservar-medicinais','kb-tinturas-infusoes','kb-seguranca-contraindicacoes-fitoterapia','kb-quando-nao-usar-fitoterapia']},
+];
+const KBX_ACH = [
+  {id:'first', icon:'🌱', t:'Primeira leitura', d:'Concluíste o teu primeiro guia', ok:s=>s.done>=1},
+  {id:'d5', icon:'📗', t:'Curioso', d:'5 guias concluídos', ok:s=>s.done>=5},
+  {id:'d10', icon:'📘', t:'Estudioso', d:'10 guias concluídos', ok:s=>s.done>=10},
+  {id:'d25', icon:'📚', t:'Dedicado', d:'25 guias concluídos', ok:s=>s.done>=25},
+  {id:'d50', icon:'🎓', t:'Mestre da terra', d:'50 guias concluídos', ok:s=>s.done>=50},
+  {id:'mod', icon:'🏅', t:'Módulo completo', d:'Concluíste todos os guias de uma categoria', ok:s=>s.modules>=1},
+  {id:'exp', icon:'🧭', t:'Explorador', d:'Concluíste guias de 5 categorias diferentes', ok:s=>s.cats>=5},
+  {id:'s3', icon:'🔥', t:'Três dias seguidos', d:'Aprendeste 3 dias seguidos', ok:s=>s.best>=3},
+  {id:'s7', icon:'⚡', t:'Semana inteira', d:'Aprendeste 7 dias seguidos', ok:s=>s.best>=7},
+  {id:'trail', icon:'🗺️', t:'Trilha concluída', d:'Terminaste uma trilha de aprendizagem', ok:s=>s.trails>=1},
+  {id:'all', icon:'🌲', t:'Floresta completa', d:'Concluíste todos os guias', ok:s=>s.total>0 && s.done>=s.total},
+];
+function kbxStats(p){
+  p = p || kbxP();
+  const done = kbxDoneIds(p), lim = Date.now()-7*86400000;
+  const catsWith = new Set(done.map(id=>kbxArt(id).cat));
+  return {
+    done: done.length, total: KNOWLEDGE.length,
+    modules: KB_CATEGORIES.filter(c=>kbxCatProgress(c.id,p).pct===100).length,
+    cats: catsWith.size,
+    trails: KBX_TRAILS.filter(t=>kbxTrailProgress(t,p).pct===100).length,
+    streak: kbxStreak(p), best: kbxBestStreak(p),
+    minutes: done.reduce((s,id)=>s+kbxMeta()[id].min,0),
+    week: done.filter(id=>p.done[id]>=lim).length,
+  };
+}
+function kbxCheckAch(){
+  const p = kbxP(), st = kbxStats(p), fresh = [];
+  KBX_ACH.forEach(a=>{ if(!p.ach[a.id] && a.ok(st)){ p.ach[a.id] = Date.now(); fresh.push(a); } });
+  return fresh;
+}
+function kbxToast(html){
+  let t = document.getElementById('kbxToast');
+  if(!t){ t = document.createElement('div'); t.id = 'kbxToast'; t.className = 'kbx-toast'; document.body.appendChild(t); }
+  t.innerHTML = html; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 4500);
+}
+function kbxSetDone(id, on, auto){
+  const p = kbxP(), was = !!p.done[id], a = kbxArt(id);
+  if(on === was) return;
+  if(on){ p.done[id] = Date.now(); p.prog[id] = 100; kbxMarkDay(p); }
+  else { delete p.done[id]; if((p.prog[id]||0) > 90) p.prog[id] = 90; }
+  const msgs = [];
+  if(on){
+    msgs.push('✓ Guia concluído'+(auto?' (chegaste ao fim)':''));
+    const cp = kbxCatProgress(a.cat, p); if(cp.pct===100) msgs.push('🏅 Módulo «'+esc((kbxCatOf(a.cat)||{}).label||'')+'» concluído!');
+    KBX_TRAILS.forEach(t=>{ if(t.ids.includes(id) && kbxTrailProgress(t,p).pct===100) msgs.push('🗺️ Trilha «'+esc(t.title)+'» concluída! Já podes gerar o certificado.'); });
+    kbxCheckAch().forEach(x=>msgs.push('🏆 Conquista: '+esc(x.t)));
+  }
+  saveDB();
+  if(on) kbxToast(msgs.join('<br>'));
+  const box = document.getElementById('kbxDoneBox'); if(box) box.innerHTML = kbxDoneBoxHTML(id);
+  const ml = document.getElementById('kbxMetaLine'); if(ml) ml.innerHTML = kbxMetaLineHTML(id);
+}
+function kbxSetGoal(v){ kbxP().goal = Math.max(1, Math.min(14, +v||3)); saveDB(); renderConhecimento(); }
 function kbxToggleFav(id, ev){
   if(ev){ ev.stopPropagation(); ev.preventDefault(); }
-  const f = kbxFavs(), i = f.indexOf(id), on = i < 0;
+  const p = kbxP(), f = p.fav, i = f.indexOf(id), on = i < 0;
   if(on) f.push(id); else f.splice(i,1);
   saveDB();
   document.querySelectorAll('[data-kbfav="'+id+'"]').forEach(b=>{
@@ -5520,6 +5723,149 @@ function kbxToggleFav(id, ev){
   if(w) w.innerHTML = kbxShelf('♥ Os teus favoritos', 'Guias que guardaste para voltar a ler', f.slice().reverse());
   const c = document.getElementById('kbxChips'); if(c) c.innerHTML = kbxChipsHTML();
   if(kbxView==='favs') kbxRefresh();
+}
+function kbxFmtDay(ts){ return new Date(ts).toLocaleDateString('pt-PT', {day:'2-digit', month:'2-digit', year:'numeric'}); }
+
+/* ---- Componentes do percurso ---- */
+function kbxRing(pct, size, sw, label){
+  const r = (size-sw)/2, c = 2*Math.PI*r, h = size/2;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" class="kbp-ring" role="img" aria-label="${pct}% concluído">
+    <circle cx="${h}" cy="${h}" r="${r}" fill="none" style="stroke:var(--border)" stroke-width="${sw}"/>
+    <circle cx="${h}" cy="${h}" r="${r}" fill="none" style="stroke:var(--green-500)" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${(c*(1-pct/100)).toFixed(1)}" transform="rotate(-90 ${h} ${h})"/>
+    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" style="fill:var(--ink);font-family:Fredoka,sans-serif;font-weight:600;font-size:${Math.round(size*0.24)}px">${label}</text>
+  </svg>`;
+}
+function kbxBar(pct, cls){ return `<div class="kbp-bar ${cls||''}"><i style="width:${Math.max(0,Math.min(100,pct))}%"></i></div>`; }
+function kbxImgTag(key, eager){ return `<img class="kbx-img" src="kb/g/${key}.webp" ${eager?'':'loading="lazy"'} alt="" onload="this.classList.add('in')" onerror="this.remove()">`; }
+function kbxTrailById(id){ return KBX_TRAILS.find(t=>t.id===id); }
+function kbxTrailCard(t){
+  const tp = kbxTrailProgress(t), min = t.ids.reduce((s,id)=>s+(kbxArt(id)?kbxMeta()[id].min:0),0);
+  const state = tp.pct===100 ? '<span class="kbp-chip ok">✓ Concluída</span>' : tp.started ? '<span class="kbp-chip go">Em curso</span>' : '<span class="kbp-chip">Por começar</span>';
+  return `<div class="kbp-trail" role="link" tabindex="0" onclick="kbxOpenTrail('${t.id}')" onkeydown="if(event.key==='Enter')kbxOpenTrail('${t.id}')">
+    <div class="kbp-trail-img" style="--kb-g:${kbxGrad('culturas')}"><span class="kbx-ph">${t.icon}</span>${kbxImgTag(kbxImgKey(t.cover))}<span class="kbx-shade"></span><span class="kbp-trail-ic">${t.icon}</span></div>
+    <div class="kbp-trail-body">
+      <div class="kbx-eyebrow" style="color:var(--ink-faint)">Trilha · ${tp.total} aulas · ~${min} min</div>
+      <h4 class="display">${esc(t.title)}</h4>
+      <p>${esc(t.desc)}</p>
+      ${kbxBar(tp.pct)}
+      <div class="flex items-center justify-between gap-2 mt-2"><span class="text-xs" style="color:var(--ink-soft)">${tp.done}/${tp.total} · ${tp.pct}%</span>${state}</div>
+    </div>
+  </div>`;
+}
+function kbxModuleCard(c){
+  const cp = kbxCatProgress(c.id), st = cp.pct===100 ? '✓ Concluído' : cp.done ? 'Em curso' : 'Por começar';
+  return `<div class="kbp-mod" role="link" tabindex="0" style="--kb-g:${kbxGrad(c.id)}" onclick="kbxOpenCat('${c.id}')" onkeydown="if(event.key==='Enter')kbxOpenCat('${c.id}')">
+    ${kbxImgTag('cat-'+c.id)}<span class="kbx-shade"></span>
+    <span class="kbp-mod-ring">${kbxRing(cp.pct, 46, 5, cp.pct+'%')}</span>
+    <span class="kbx-cap"><span class="kbx-t">${c.icon} ${esc(c.label)}</span><span class="kbx-m">${cp.done}/${cp.total} guias · ${st}</span></span>
+  </div>`;
+}
+function kbxContinueId(p){
+  const ids = Object.keys(p.read).filter(id=>kbxArt(id) && !p.done[id]).sort((a,b)=>p.read[b]-p.read[a]);
+  return ids[0] || null;
+}
+function kbxWeekBars(p){
+  const names = ['D','S','T','Q','Q','S','S'], days = [];
+  for(let o=6;o>=0;o--){ const d = new Date(); d.setDate(d.getDate()-o); days.push({k:dateISO(d), l:names[d.getDay()], today:o===0}); }
+  const max = Math.max(1, ...days.map(d=>p.days[d.k]||0));
+  return `<div class="kbp-week">${days.map(d=>{ const n = p.days[d.k]||0; return `<div class="kbp-day ${d.today?'today':''}" title="${n} atividade${n===1?'':'s'}"><i style="height:${n?Math.max(14, Math.round(n*100/max)):6}%" class="${n?'on':''}"></i><span>${d.l}</span></div>`; }).join('')}</div>`;
+}
+function kbpHTML(){
+  if(kbxCheckAch().length) saveDB();
+  const p = kbxP(), st = kbxStats(p), lv = kbxLevelInfo(st.done), u = activeUser();
+  const pct = st.total ? Math.round(st.done*100/st.total) : 0;
+  const cid = kbxContinueId(p);
+  let cont;
+  if(cid){
+    const a = kbxArt(cid), pr = p.prog[cid]||0;
+    cont = `<div class="kbp-cont" role="link" tabindex="0" style="--kb-g:${kbxGrad(a.cat)}" onclick="kbxOpen('${cid}')" onkeydown="if(event.key==='Enter')kbxOpen('${cid}')">${kbxImgTag(kbxImgKey(cid), true)}<span class="kbx-shade"></span>
+      <div class="kbp-cont-in"><div class="kbx-eyebrow">Continuar a aprender</div><h3 class="display">${esc(a.title)}</h3>
+      ${kbxBar(pr,'light')}<div class="text-xs mt-1" style="opacity:.9">${pr?pr+'% lido':'Ainda não começaste'} · ⏱ ${kbxMeta()[cid].min} min</div>
+      <span class="btn btn-primary btn-sm mt-3">▶ Retomar</span></div></div>`;
+  } else {
+    const t = KBX_TRAILS.find(x=>kbxTrailProgress(x,p).pct<100) || KBX_TRAILS[0], tp = kbxTrailProgress(t,p), nid = tp.next || t.ids[0];
+    cont = `<div class="kbp-cont" role="link" tabindex="0" style="--kb-g:${kbxGrad('culturas')}" onclick="kbxOpen('${nid}','${t.id}')" onkeydown="if(event.key==='Enter')kbxOpen('${nid}','${t.id}')">${kbxImgTag(kbxImgKey(nid), true)}<span class="kbx-shade"></span>
+      <div class="kbp-cont-in"><div class="kbx-eyebrow">Começa por aqui</div><h3 class="display">${t.icon} ${esc(t.title)}</h3>
+      <div class="text-xs" style="opacity:.9">${esc(t.desc)}</div><span class="btn btn-primary btn-sm mt-3">▶ Iniciar a trilha</span></div></div>`;
+  }
+  const goalPct = Math.min(100, Math.round(st.week*100/p.goal));
+  const done = kbxDoneIds(p);
+  const chips = [
+    `<span class="kbp-stat"><b>🔥 ${st.streak}</b><i>${st.streak===1?'dia seguido':'dias seguidos'}</i></span>`,
+    `<span class="kbp-stat"><b>📖 ${st.done}</b><i>guias concluídos</i></span>`,
+    `<span class="kbp-stat"><b>⏱ ${st.minutes}</b><i>min de estudo</i></span>`,
+    `<span class="kbp-stat"><b>🏅 ${st.modules}</b><i>módulos completos</i></span>`,
+    `<span class="kbp-stat"><b>🗺️ ${st.trails}</b><i>trilhas concluídas</i></span>`,
+  ].join('');
+  const unlocked = KBX_ACH.filter(a=>p.ach[a.id]).length;
+  const recIds = (kbxHortaPicks()||{ids:[]}).ids.concat((KBX_SEASON[new Date().getMonth()]||[])).filter((id,i,arr)=>kbxArt(id) && !p.done[id] && arr.indexOf(id)===i).slice(0,10);
+  const admin = activeUser().role==='admin' && DB.users.length>1;
+  const team = admin ? `<section class="kbp-sec"><h3 class="display">👥 Equipa</h3><p class="text-xs mb-3" style="color:var(--ink-faint)">Progresso de aprendizagem de cada pessoa (só os administradores veem esta secção).</p>
+    <div class="card p-4">${DB.users.map(x=>{
+      const q = (DB.kbP||{})[x.id], nd = q ? Object.keys(q.done||{}).filter(id=>kbxArt(id)).length : 0, pc = Math.round(nd*100/KNOWLEDGE.length);
+      const last = q ? Math.max(0, ...Object.values(q.read||{}), ...Object.values(q.done||{})) : 0;
+      return `<div class="kbp-member"><span class="kbp-av" style="background:${x.color||'var(--green-600)'}">${esc((x.name||'?').charAt(0).toUpperCase())}</span><div class="flex-1 min-w-0"><div class="flex justify-between gap-2 text-sm"><b class="truncate">${esc(x.name)}</b><span class="mono text-xs" style="color:var(--ink-faint)">${nd}/${KNOWLEDGE.length} · ${pc}%</span></div>${kbxBar(pc)}<div class="text-xs mt-1" style="color:var(--ink-faint)">${last?'Última atividade: '+kbxFmtDay(last):'Ainda sem atividade'}</div></div></div>`;
+    }).join('')}</div></section>` : '';
+  return `
+  <div class="kbp-top">
+    <div class="card kbp-hero">
+      <div class="kbp-ringbox">${kbxRing(pct, 128, 12, pct+'%')}<span class="kbp-ringcap">${st.done} de ${st.total}</span></div>
+      <div class="flex-1 min-w-0">
+        <div class="kbx-eyebrow" style="color:var(--ink-faint)">O meu percurso</div>
+        <h2 class="display" style="font-size:24px;margin:2px 0 6px">Olá, ${esc(u.name)}</h2>
+        <div class="text-sm mb-1"><b>${lv.cur.icon} ${lv.cur.name}</b>${lv.nxt?` <span style="color:var(--ink-soft)">— faltam ${lv.toNext} guia${lv.toNext===1?'':'s'} para ${lv.nxt.icon} ${lv.nxt.name}</span>`:' <span style="color:var(--ink-soft)">— nível máximo!</span>'}</div>
+        ${kbxBar(lv.pct)}
+        <div class="kbp-stats">${chips}</div>
+      </div>
+    </div>
+    ${cont}
+  </div>
+  <div class="kbp-two">
+    <section class="card p-4"><h3 class="display kbp-h">📅 Esta semana</h3>
+      <div class="flex items-center justify-between gap-2 text-sm mb-1"><span><b>${st.week}</b> de <b>${p.goal}</b> guias concluídos nos últimos 7 dias</span><span class="mono text-xs" style="color:var(--ink-faint)">${goalPct}%</span></div>
+      ${kbxBar(goalPct)}
+      ${kbxWeekBars(p)}
+      <label class="text-xs flex items-center gap-2 mt-2" style="color:var(--ink-faint)">Meta semanal
+        <select class="field" style="width:auto;padding:4px 8px" onchange="kbxSetGoal(this.value)">${[1,2,3,4,5,7,10].map(n=>`<option value="${n}" ${p.goal===n?'selected':''}>${n} guia${n>1?'s':''}</option>`).join('')}</select></label>
+    </section>
+    <section class="card p-4"><h3 class="display kbp-h">🏆 Conquistas <span class="text-xs font-normal" style="color:var(--ink-faint)">${unlocked}/${KBX_ACH.length}</span></h3>
+      <div class="kbp-ach">${KBX_ACH.map(a=>{ const on = !!p.ach[a.id]; return `<div class="kbp-badge ${on?'on':''}" title="${esc(a.t)} — ${esc(a.d)}${on?' (conquistada a '+kbxFmtDay(p.ach[a.id])+')':''}"><span>${a.icon}</span><b>${esc(a.t)}</b></div>`; }).join('')}</div>
+    </section>
+  </div>
+  <section class="kbp-sec"><h3 class="display">🗺️ Trilhas de aprendizagem</h3><p class="text-xs mb-3" style="color:var(--ink-faint)">Sequências de aulas para aprender um tema do princípio ao fim. Ao terminar, podes gerar o teu certificado de participação.</p>
+    <div class="kbp-trails">${KBX_TRAILS.map(t=>kbxTrailCard(t)).join('')}</div></section>
+  <section class="kbp-sec"><h3 class="display">🎓 Módulos por categoria</h3><p class="text-xs mb-3" style="color:var(--ink-faint)">Cada categoria é um módulo. Conclui todos os guias para o completar.</p>
+    <div class="kbp-mods">${KB_CATEGORIES.map(c=>kbxModuleCard(c)).join('')}</div></section>
+  ${recIds.length? `<section class="kbp-sec">${kbxShelf('Recomendado para ti', 'Ainda por ler, para esta altura do ano e para o que tens plantado', recIds)}</section>` : ''}
+  ${team}
+  `;
+}
+
+/* ---- Certificado de participação (imagem PNG) ---- */
+function kbxCertificate(tid){
+  const t = kbxTrailById(tid), p = kbxP(); if(!t || kbxTrailProgress(t,p).pct<100) return;
+  const W = 1600, H = 1130, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const g = cv.getContext('2d'), when = Math.max(...t.ids.map(id=>p.done[id]||0));
+  const finish = ()=>{
+    g.textAlign = 'center';
+    g.fillStyle = '#2A6B3A'; g.font = '600 30px Fredoka, sans-serif'; g.fillText('CERTIFICADO DE PARTICIPAÇÃO', W/2, 330);
+    g.fillStyle = '#3B4A3F'; g.font = '400 30px sans-serif'; g.fillText('Certifica-se que', W/2, 430);
+    g.fillStyle = '#1F4429'; g.font = '600 82px Fredoka, sans-serif'; g.fillText(activeUser().name, W/2, 540);
+    g.fillStyle = '#3B4A3F'; g.font = '400 30px sans-serif'; g.fillText('concluiu a trilha de aprendizagem', W/2, 630);
+    g.fillStyle = '#2A6B3A'; g.font = '600 56px Fredoka, sans-serif'; g.fillText(t.title, W/2, 730);
+    g.fillStyle = '#3B4A3F'; g.font = '400 28px sans-serif'; g.fillText(t.ids.length+' aulas concluídas  ·  '+kbxFmtDay(when), W/2, 810);
+    g.fillStyle = '#7A857D'; g.font = '400 22px sans-serif'; g.fillText('Certificado interno de participação — não constitui uma certificação profissional ou oficial.', W/2, H-110);
+    const a = document.createElement('a'); a.href = cv.toDataURL('image/png');
+    a.download = 'certificado-'+t.id+'-'+todayISO()+'.png'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  };
+  g.fillStyle = '#FBFAF4'; g.fillRect(0,0,W,H);
+  g.strokeStyle = '#2A6B3A'; g.lineWidth = 14; g.strokeRect(40,40,W-80,H-80); g.lineWidth = 3; g.strokeRect(66,66,W-132,H-132);
+  const brandText = ()=>{ g.textAlign = 'center'; g.fillStyle = '#2F7A3D'; g.font = '700 34px sans-serif'; g.fillText('QUINTA VIVA', W/2, 200); finish(); };
+  if(DB.brandLogo){
+    const img = new Image();
+    img.onload = ()=>{ const s = Math.min(420/img.width, 130/img.height, 1), w = img.width*s, h = img.height*s; g.drawImage(img, (W-w)/2, 130+(130-h)/2, w, h); finish(); };
+    img.onerror = brandText; img.src = DB.brandLogo;
+  } else brandText();
 }
 
 /* ---- Créditos das fotografias ---- */
@@ -5552,18 +5898,6 @@ function kbxLead(a, max){
   if(s.length <= max) return s;
   const cut = s.slice(0, max), i = cut.lastIndexOf('. ');
   return i > 70 ? cut.slice(0, i+1) : cut.slice(0, cut.lastIndexOf(' ')) + '…';
-}
-function kbxCard(id){
-  const a = kbxArt(id); if(!a) return '';
-  const cat = kbxCatOf(a.cat), m = kbxMeta()[id], fav = kbxIsFav(id), read = DB.kbRead && DB.kbRead[id];
-  return `<div class="kbx-card" role="link" tabindex="0" style="--kb-g:${kbxGrad(a.cat)}" onclick="kbxOpen('${id}')" onkeydown="if(event.key==='Enter')kbxOpen('${id}')" aria-label="${esc(a.title)}">
-    <span class="kbx-ph">${cat?cat.icon:'🌿'}</span>
-    <img class="kbx-img" src="kb/g/${kbxImgKey(id)}.webp" loading="lazy" alt="" onload="this.classList.add('in')" onerror="this.remove()">
-    <span class="kbx-shade"></span>
-    <span class="kbx-tag">${cat?cat.icon+' '+esc(cat.label):''}</span>
-    <button class="kbx-fav ${fav?'on':''}" data-kbfav="${id}" onclick="kbxToggleFav('${id}',event)" aria-label="Guardar nos favoritos" title="Guardar nos favoritos">${fav?'♥':'♡'}</button>
-    <span class="kbx-cap"><span class="kbx-t">${esc(a.title)}</span><span class="kbx-m">⏱ ${m.min} min${read?' · ✓ Lido':''}</span></span>
-  </div>`;
 }
 function kbxShelf(title, sub, ids, opts){
   ids = (ids||[]).filter(id=>kbxArt(id)); if(!ids.length) return '';
@@ -5635,38 +5969,6 @@ function kbxHeroHTML(id){
     </div>
   </div>`;
 }
-function kbxHomeHTML(){
-  const now = new Date(), heroId = kbxHeroId();
-  const month = (KBX_SEASON[now.getMonth()]||[]).filter(id=>id!==heroId);
-  const horta = kbxHortaPicks();
-  const quick = KNOWLEDGE.map(a=>a.id).sort((x,y)=>kbxMeta()[x].plain.length-kbxMeta()[y].plain.length).slice(0,10);
-  const recent = kbxRecentIds();
-  return kbxHeroHTML(heroId) + `<div class="kbx-shelves">
-    ${recent.length? kbxShelf('Vistos recentemente', 'Retoma de onde ficaste', recent) : ''}
-    <div id="kbxFavWrap">${kbxFavs().length? kbxShelf('♥ Os teus favoritos', 'Guias que guardaste para voltar a ler', kbxFavs().slice().reverse()) : ''}</div>
-    ${kbxShelf('Para fazer em '+KBX_MONTHS[now.getMonth()].toLowerCase(), 'Escolhas para esta altura do ano em Portugal', month)}
-    ${horta? kbxShelf('Para a tua horta agora', 'Com base no que tens plantado: '+esc(horta.label), horta.ids) : ''}
-    ${kbxShelf('Leituras rápidas', 'Os guias mais curtos, para ler num minuto', quick)}
-    ${KB_CATEGORIES.map(c=>{ const ids = kbxIdsOf(c.id); return kbxShelf(c.icon+' '+esc(c.label), ids.length+' guias', ids, {cat:c.id, total:ids.length}); }).join('')}
-    <div class="kbx-promo" onclick="setKbMode('biblioteca')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')setKbMode('biblioteca')">
-      <div><div class="display font-semibold" style="font-size:18px">📚 Vai mais fundo na Biblioteca</div>
-      <div class="text-sm" style="opacity:.9">58 volumes técnicos, 3 480 unidades, glossário e fontes oficiais.</div></div>
-      <span class="btn kbx-glass">Abrir Biblioteca ›</span>
-    </div>
-    <div class="text-center text-xs pb-2" style="color:var(--ink-faint)">Fotografias: Wikimedia Commons, licenças livres. <button class="underline" onclick="kbxCreditsModal()">Ver créditos</button></div>
-  </div>`;
-}
-function kbxCatHTML(cid){
-  const c = kbxCatOf(cid); if(!c) return kbxHomeHTML();
-  const ids = kbxIdsOf(cid), mins = ids.reduce((s,id)=>s+kbxMeta()[id].min,0);
-  return `<div class="kbx-hero kbx-hero-sm" style="--kb-g:${kbxGrad(cid)}">
-    <span class="kbx-ph" style="font-size:110px">${c.icon}</span>
-    <img class="kbx-img" src="kb/g/cat-${cid}.webp" alt="" onload="this.classList.add('in')" onerror="this.remove()">
-    <div class="kbx-hero-in"><div class="kbx-eyebrow">Categoria</div><h2 class="display">${c.icon} ${esc(c.label)}</h2>
-    <p style="margin-bottom:0">${ids.length} guias · cerca de ${mins} minutos de leitura</p></div>
-  </div>
-  <div class="mt-4">${kbxWarn(cid)}<div class="kbx-grid">${ids.map(id=>kbxCard(id)).join('')}</div></div>`;
-}
 function kbxFavsHTML(){
   const f = kbxFavs().slice().reverse().filter(id=>kbxArt(id));
   return `<h2 class="display font-semibold mb-1" style="font-size:22px">♥ Os teus favoritos</h2>
@@ -5688,14 +5990,129 @@ function kbxSearchHTML(){
   return `<p class="text-sm mb-3" style="color:var(--ink-faint)">${ids.length? ids.length+' resultado'+(ids.length>1?'s':'')+' para “'+esc(kbSearch.trim())+'”' : 'Sem resultados para “'+esc(kbSearch.trim())+'”. Experimenta uma palavra mais simples, como “rega”, “tomate” ou “galinhas”.'}</p>
   <div class="kbx-grid">${ids.map(id=>kbxCard(id)).join('')}</div>`;
 }
+function kbxCard(id){
+  const a = kbxArt(id); if(!a) return '';
+  const p = kbxP(), cat = kbxCatOf(a.cat), m = kbxMeta()[id], fav = p.fav.includes(id), done = !!p.done[id], pr = p.prog[id]||0;
+  const status = done ? ' · ✓ Concluído' : (pr>=5 ? ' · '+pr+'% lido' : '');
+  return `<div class="kbx-card ${done?'is-done':''}" role="link" tabindex="0" style="--kb-g:${kbxGrad(a.cat)}" onclick="kbxOpen('${id}')" onkeydown="if(event.key==='Enter')kbxOpen('${id}')" aria-label="${esc(a.title)}">
+    <span class="kbx-ph">${cat?cat.icon:'🌿'}</span>
+    <img class="kbx-img" src="kb/g/${kbxImgKey(id)}.webp" loading="lazy" alt="" onload="this.classList.add('in')" onerror="this.remove()">
+    <span class="kbx-shade"></span>
+    <span class="kbx-tag">${cat?cat.icon+' '+esc(cat.label):''}</span>
+    <button class="kbx-fav ${fav?'on':''}" data-kbfav="${id}" onclick="kbxToggleFav('${id}',event)" aria-label="Guardar nos favoritos" title="Guardar nos favoritos">${fav?'♥':'♡'}</button>
+    <span class="kbx-cap"><span class="kbx-t">${esc(a.title)}</span><span class="kbx-m">⏱ ${m.min} min${status}</span></span>
+    ${done ? '<span class="kbx-bar" style="width:100%"></span>' : (pr>=5 ? `<span class="kbx-bar" style="width:${pr}%"></span>` : '')}
+  </div>`;
+}
+function kbxStripHTML(){
+  const p = kbxP(), st = kbxStats(p), lv = kbxLevelInfo(st.done), pct = st.total ? Math.round(st.done*100/st.total) : 0;
+  const txt = st.done ? `<b>${st.done} de ${st.total}</b> guias concluídos · ${lv.cur.icon} ${lv.cur.name}${st.streak?` · 🔥 ${st.streak} ${st.streak===1?'dia':'dias'}`:''}` : `<b>Começa a tua aprendizagem</b> — ${KBX_TRAILS.length} trilhas guiadas, com conquistas e certificado`;
+  return `<div class="kbx-strip" role="button" tabindex="0" onclick="setKbMode('percurso')" onkeydown="if(event.key==='Enter')setKbMode('percurso')">
+    ${kbxRing(pct, 46, 5, pct+'%')}
+    <div class="flex-1 min-w-0"><div class="text-xs" style="color:var(--ink-faint)">🎓 O meu percurso</div><div class="text-sm">${txt}</div></div>
+    <span class="text-xs font-semibold flex-none" style="color:var(--green-700)">Ver percurso ›</span>
+  </div>`;
+}
+function kbxHomeHTML(){
+  const now = new Date(), heroId = kbxHeroId();
+  const month = (KBX_SEASON[now.getMonth()]||[]).filter(id=>id!==heroId);
+  const horta = kbxHortaPicks();
+  const quick = KNOWLEDGE.map(a=>a.id).sort((x,y)=>kbxMeta()[x].plain.length-kbxMeta()[y].plain.length).slice(0,10);
+  const recent = kbxRecentIds();
+  return kbxStripHTML() + kbxHeroHTML(heroId) + `<div class="kbx-shelves">
+    <section class="kbx-shelf">
+      <div class="px-1"><h3 class="display font-semibold m-0" style="font-size:18px">🗺️ Trilhas de aprendizagem</h3><div class="text-xs" style="color:var(--ink-faint)">Aulas em sequência, com progresso e certificado</div></div>
+      <div class="kbx-rowwrap"><button class="kbx-arrow l" onclick="kbxArrow(this,-1)" aria-label="Anterior">‹</button>
+        <div class="kbx-row">${KBX_TRAILS.map(t=>kbxTrailCard(t)).join('')}</div>
+        <button class="kbx-arrow r" onclick="kbxArrow(this,1)" aria-label="Seguinte">›</button></div>
+    </section>
+    ${recent.length? kbxShelf('Vistos recentemente', 'Retoma de onde ficaste', recent) : ''}
+    <div id="kbxFavWrap">${kbxFavs().length? kbxShelf('♥ Os teus favoritos', 'Guias que guardaste para voltar a ler', kbxFavs().slice().reverse()) : ''}</div>
+    ${kbxShelf('Para fazer em '+KBX_MONTHS[now.getMonth()].toLowerCase(), 'Escolhas para esta altura do ano em Portugal', month)}
+    ${horta? kbxShelf('Para a tua horta agora', 'Com base no que tens plantado: '+esc(horta.label), horta.ids) : ''}
+    ${kbxShelf('Leituras rápidas', 'Os guias mais curtos, para ler num minuto', quick)}
+    ${KB_CATEGORIES.map(c=>{ const ids = kbxIdsOf(c.id), cp = kbxCatProgress(c.id); return kbxShelf(c.icon+' '+esc(c.label), ids.length+' guias · '+cp.done+' concluídos', ids, {cat:c.id, total:ids.length}); }).join('')}
+    <div class="kbx-promo" onclick="setKbMode('biblioteca')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')setKbMode('biblioteca')">
+      <div><div class="display font-semibold" style="font-size:18px">📚 Vai mais fundo na Biblioteca</div>
+      <div class="text-sm" style="opacity:.9">58 volumes técnicos, 3 480 unidades, glossário e fontes oficiais.</div></div>
+      <span class="btn kbx-glass">Abrir Biblioteca ›</span>
+    </div>
+    <div class="text-center text-xs pb-2" style="color:var(--ink-faint)">Fotografias: Wikimedia Commons, licenças livres. <button class="underline" onclick="kbxCreditsModal()">Ver créditos</button></div>
+  </div>`;
+}
+function kbxSyllabus(ids, trailId){
+  const p = kbxP(), nextId = ids.find(id=>!p.done[id]);
+  return `<div class="card kbx-syl">${ids.map((id,i)=>{
+    const a = kbxArt(id), m = kbxMeta()[id], done = !!p.done[id], pr = p.prog[id]||0, isNext = id===nextId;
+    const click = `kbxOpen('${id}'${trailId?`,'${trailId}'`:''})`;
+    return `<div class="kbx-lesson ${done?'done':''} ${isNext?'next':''}" role="link" tabindex="0" onclick="${click}" onkeydown="if(event.key==='Enter')${click}">
+      <span class="kbx-lnum">${done?'✓':i+1}</span>
+      <span class="kbx-lthumb" style="--kb-g:${kbxGrad(a.cat)}">${kbxImgTag(kbxImgKey(id))}</span>
+      <span class="kbx-linfo"><b>${esc(a.title)}</b><i>⏱ ${m.min} min${!done&&pr>=5?' · '+pr+'% lido':''}</i></span>
+      <span class="kbx-lstate">${done?'Concluída':isNext?'Continuar ›':(pr>=5?'Em curso':'')}</span>
+    </div>`; }).join('')}</div>`;
+}
+function kbxCatHTML(cid){
+  const c = kbxCatOf(cid); if(!c) return kbxHomeHTML();
+  const ids = kbxIdsOf(cid), mins = ids.reduce((s,id)=>s+kbxMeta()[id].min,0), cp = kbxCatProgress(cid);
+  return `<div class="kbx-hero kbx-hero-sm" style="--kb-g:${kbxGrad(cid)}">
+    <span class="kbx-ph" style="font-size:110px">${c.icon}</span>
+    ${kbxImgTag('cat-'+cid, true)}
+    <div class="kbx-hero-in"><div class="kbx-eyebrow">Módulo</div><h2 class="display">${c.icon} ${esc(c.label)}</h2>
+    <p style="margin-bottom:10px">${ids.length} aulas · cerca de ${mins} minutos de leitura</p>
+    <div class="kbp-bar light" style="max-width:340px"><i style="width:${cp.pct}%"></i></div>
+    <div class="text-xs mt-1 mb-3" style="opacity:.92">${cp.done} de ${cp.total} concluídas · ${cp.pct}%</div>
+    ${cp.next ? `<button class="btn btn-primary btn-sm" onclick="kbxOpen('${cp.next}')">▶ ${cp.done?'Continuar':'Começar'} o módulo</button>` : `<span class="kbp-chip ok" style="background:rgba(255,255,255,.2);color:#fff">✓ Módulo concluído</span>`}
+    </div>
+  </div>
+  <div class="mt-4">${kbxWarn(cid)}<h3 class="display font-semibold mb-2" style="font-size:17px">Programa do módulo</h3>${kbxSyllabus(ids)}</div>`;
+}
+function kbxTrailHTML(tid){
+  const t = kbxTrailById(tid); if(!t) return kbxHomeHTML();
+  const ids = t.ids.filter(id=>kbxArt(id)), tp = kbxTrailProgress(t), mins = ids.reduce((s,id)=>s+kbxMeta()[id].min,0);
+  const warn = kbxWarn(kbxArt(ids[0]).cat);
+  return `<div class="kbx-hero kbx-hero-sm" style="--kb-g:${kbxGrad('culturas')}">
+    <span class="kbx-ph" style="font-size:110px">${t.icon}</span>
+    ${kbxImgTag(kbxImgKey(t.cover), true)}
+    <div class="kbx-hero-in"><div class="kbx-eyebrow">Trilha de aprendizagem</div><h2 class="display">${t.icon} ${esc(t.title)}</h2>
+    <p style="margin-bottom:10px">${esc(t.desc)} ${ids.length} aulas · ~${mins} min.</p>
+    <div class="kbp-bar light" style="max-width:340px"><i style="width:${tp.pct}%"></i></div>
+    <div class="text-xs mt-1 mb-3" style="opacity:.92">${tp.done} de ${tp.total} concluídas · ${tp.pct}%</div>
+    <div class="flex gap-2 flex-wrap">
+    ${tp.next ? `<button class="btn btn-primary btn-sm" onclick="kbxOpen('${tp.next}','${t.id}')">▶ ${tp.done?'Continuar':'Começar'} a trilha</button>` : `<button class="btn btn-primary btn-sm" onclick="kbxCertificate('${t.id}')">🎓 Descarregar certificado</button>`}
+    <button class="btn kbx-glass btn-sm" onclick="setKbMode('percurso')">‹ O meu percurso</button></div>
+    </div>
+  </div>
+  <div class="mt-4">${warn}<h3 class="display font-semibold mb-2" style="font-size:17px">Aulas da trilha</h3>${kbxSyllabus(ids, t.id)}</div>`;
+}
+function kbxMetaLineHTML(id){
+  const a = kbxArt(id), m = kbxMeta()[id], p = kbxP(), done = p.done[id];
+  let ctx;
+  if(kbxCtx){ const t = kbxTrailById(kbxCtx), ids = t?t.ids:[], i = ids.indexOf(id); ctx = t && i>=0 ? `${t.icon} ${esc(t.title)} · aula ${i+1} de ${ids.length}` : ''; }
+  else { const ids = kbxIdsOf(a.cat), i = ids.indexOf(id); ctx = `Aula ${i+1} de ${ids.length}`; }
+  return `${ctx?ctx+' · ':''}⏱ ${m.min} min de leitura${done?' · ✓ Concluído':''}`;
+}
+function kbxNextAfter(id){
+  const list = kbxCtx && kbxTrailById(kbxCtx) ? kbxTrailById(kbxCtx).ids.filter(x=>kbxArt(x)) : kbxIdsOf(kbxArt(id).cat);
+  const i = list.indexOf(id);
+  return {list, prev: i>0?list[i-1]:null, next: i>=0 && i<list.length-1 ? list[i+1] : null};
+}
+function kbxDoneBoxHTML(id){
+  const p = kbxP(), done = p.done[id], nx = kbxNextAfter(id), tq = kbxCtx?`,'${kbxCtx}'`:'';
+  const nextBtn = nx.next ? `<button class="btn ${done?'btn-primary':'btn-outline'}" onclick="kbxOpen('${nx.next}'${tq})">Próxima aula: ${esc(kbxArt(nx.next).title)} ›</button>`
+    : `<button class="btn ${done?'btn-primary':'btn-outline'}" onclick="${kbxCtx?`kbxOpenTrail('${kbxCtx}')`:`setKbMode('percurso')`}">${kbxCtx?'Ver a trilha':'Ver o meu percurso'} ›</button>`;
+  return done
+    ? `<div class="kbx-donecard done"><div><b>✓ Guia concluído</b><div class="text-xs" style="color:var(--ink-faint)">a ${kbxFmtDay(done)}</div></div><div class="flex gap-2 flex-wrap"><button class="btn btn-ghost btn-sm" onclick="kbxSetDone('${id}',false)">Desfazer</button>${nextBtn}</div></div>`
+    : `<div class="kbx-donecard"><div><b>Terminaste a leitura?</b><div class="text-xs" style="color:var(--ink-faint)">Marca como concluído para acompanhar o teu percurso.</div></div><div class="flex gap-2 flex-wrap"><button class="btn btn-primary" onclick="kbxSetDone('${id}',true)">✓ Marcar como concluído</button>${nextBtn}</div></div>`;
+}
 function kbxArticleHTML(id){
   const a = kbxArt(id); if(!a) return kbxHomeHTML();
-  const cat = kbxCatOf(a.cat), m = kbxMeta()[id], fav = kbxIsFav(id);
+  const cat = kbxCatOf(a.cat), fav = kbxIsFav(id);
   const heads = []; let n = 0;
   const body = a.body.replace(/<h4>([\s\S]*?)<\/h4>/g, (_, t)=>{ n++; heads.push(t.replace(/<[^>]+>/g,'')); return `<h4 id="kbh-${n}">${t}</h4>`; });
-  const siblings = kbxIdsOf(a.cat), pos = siblings.indexOf(id);
-  const prev = pos > 0 ? siblings[pos-1] : null, next = pos < siblings.length-1 ? siblings[pos+1] : null;
+  const nx = kbxNextAfter(id), siblings = kbxIdsOf(a.cat), pos = siblings.indexOf(id);
   const related = siblings.slice(pos+1).concat(siblings.slice(0,pos)).slice(0,8);
+  const tq = kbxCtx?`,'${kbxCtx}'`:'';
   kbxLoadCredits(()=>{ const el = document.getElementById('kbxCredit'); if(el) el.innerHTML = kbxCreditHTML(id); });
   const tocBtns = heads.map((h,i)=>`<button class="kbx-toc" onclick="kbxJump(${i+1})">${esc(h)}</button>`).join('');
   return `<div id="kbxArticle">
@@ -5707,7 +6124,7 @@ function kbxArticleHTML(id){
       <div class="kbx-cover-in">
         <span class="kbx-tag" style="position:static;display:inline-block;margin-bottom:8px">${cat?cat.icon+' '+esc(cat.label):''}</span>
         <h1 class="display">${esc(a.title)}</h1>
-        <div class="text-xs" style="opacity:.9">⏱ ${m.min} min de leitura${DB.kbRead&&DB.kbRead[id]?' · ✓ Lido':''}</div>
+        <div class="text-xs" style="opacity:.92" id="kbxMetaLine">${kbxMetaLineHTML(id)}</div>
       </div>
       <div id="kbxCredit">${kbxCreditHTML(id)}</div>
     </div>
@@ -5716,9 +6133,10 @@ function kbxArticleHTML(id){
         ${heads.length>=3? `<div class="kbx-tocrow lg:hidden">${tocBtns}</div>`:''}
         ${kbxWarn(a.cat)}
         <div class="kb-body kbx-lead">${body}</div>
-        <div class="flex justify-between gap-2 flex-wrap mt-6 pt-4" style="border-top:1px solid var(--border)">
-          ${prev? `<button class="btn btn-outline btn-sm" style="text-align:left" onclick="kbxOpen('${prev}')">‹ ${esc(kbxArt(prev).title)}</button>`:'<span></span>'}
-          ${next? `<button class="btn btn-outline btn-sm" style="text-align:left" onclick="kbxOpen('${next}')">${esc(kbxArt(next).title)} ›</button>`:''}
+        <div id="kbxDoneBox" class="mt-6">${kbxDoneBoxHTML(id)}</div>
+        <div class="flex justify-between gap-2 flex-wrap mt-4 pt-4" style="border-top:1px solid var(--border)">
+          ${nx.prev? `<button class="btn btn-ghost btn-sm" style="text-align:left" onclick="kbxOpen('${nx.prev}'${tq})">‹ ${esc(kbxArt(nx.prev).title)}</button>`:'<span></span>'}
+          ${nx.next? `<button class="btn btn-ghost btn-sm" style="text-align:left" onclick="kbxOpen('${nx.next}'${tq})">${esc(kbxArt(nx.next).title)} ›</button>`:''}
         </div>
       </div>
       <aside class="order-first lg:order-last flex flex-col gap-3">
@@ -5732,15 +6150,20 @@ function kbxArticleHTML(id){
     <div class="text-center text-xs py-3" style="color:var(--ink-faint)"><button class="underline" onclick="kbxCreditsModal()">Créditos das fotografias</button></div>
   </div>`;
 }
-function kbxToTop(){ window.scrollTo(0,0); const m=document.getElementById('mainContent'); if(m) m.scrollTop=0; }
 function kbxJump(n){ const el = document.getElementById('kbh-'+n); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }
+function kbxToTop(){ window.scrollTo(0,0); const m = document.getElementById('mainContent'); if(m) m.scrollTop = 0; }
 function kbxBindProgress(){
   if(window._kbxP) window.removeEventListener('scroll', window._kbxP);
   window._kbxP = function(){
     const bar = document.getElementById('kbxProg'), art = document.getElementById('kbxArticle');
     if(!bar || !art){ window.removeEventListener('scroll', window._kbxP); window._kbxP = null; return; }
     const r = art.getBoundingClientRect(), vh = window.innerHeight, total = Math.max(1, r.height - vh*0.6);
-    bar.style.width = (Math.min(1, Math.max(0, (-r.top + vh*0.2)/total))*100) + '%';
+    const f = Math.min(1, Math.max(0, (-r.top + vh*0.2)/total));
+    bar.style.width = (f*100) + '%';
+    const id = kbxSel; if(!id) return;
+    const p = kbxP(), pc = Math.round(f*100);
+    if(pc > (p.prog[id]||0)){ p.prog[id] = pc; kbxSaveSoon(); }
+    if(f >= 0.92 && !p.done[id]) kbxSetDone(id, true, true);
   };
   window.addEventListener('scroll', window._kbxP, {passive:true});
   window._kbxP();
@@ -5760,6 +6183,7 @@ function kbxChipsHTML(){
 function kbxBodyHTML(){
   if(kbxView==='article') return kbxArticleHTML(kbxSel);
   if(kbxView==='cat') return kbxCatHTML(kbxCat);
+  if(kbxView==='trail') return kbxTrailHTML(kbxTrail);
   if(kbxView==='favs') return kbxFavsHTML();
   if(kbxView==='search') return kbxSearchHTML();
   return kbxHomeHTML();
@@ -5770,46 +6194,51 @@ function kbxRefresh(){
 }
 function kbxGoto(view, cat){
   kbSearch = ''; const s = document.getElementById('kbxSearch'); if(s) s.value = '';
+  if(kbMode!=='guias'){ kbMode = 'guias'; kbxView = view; kbxCat = cat || null; renderConhecimento(); kbxToTop(); return; }
   kbxView = view; kbxCat = cat || null; kbxRefresh();
   kbxToTop();
 }
 function kbxHome(){ kbxGoto('home'); }
 function kbxOpenCat(c){ kbxGoto('cat', c); }
 function kbxOpenFavs(){ kbxGoto('favs'); }
+function kbxOpenTrail(tid){ kbxTrail = tid; kbxGoto('trail'); }
 function kbxSearchInput(v){
   kbSearch = v;
   kbxView = v.trim() ? 'search' : 'home'; kbxCat = null;
   kbxRefresh();
 }
-function kbxOpen(id){
-  if(kbxView !== 'article') kbxPrev = {view:kbxView, cat:kbxCat, scroll:window.scrollY||0};
-  kbxView = 'article'; kbxSel = id; kbxMarkRead(id);
+function kbxOpen(id, trailId){
+  if(kbMode!=='guias' || kbxView!=='article') kbxPrev = {mode:kbMode, view:kbxView, cat:kbxCat, trail:kbxTrail, scroll:window.scrollY||0};
+  kbMode = 'guias'; kbxView = 'article'; kbxSel = id; kbxCtx = trailId || null;
+  kbxMarkRead(id);
   renderConhecimento();
   kbxToTop();
   kbxBindProgress();
 }
 function kbxBackTo(){
-  kbxView = kbxPrev.view || 'home'; kbxCat = kbxPrev.cat; kbxSel = null;
+  kbMode = kbxPrev.mode || 'guias'; kbxView = kbxPrev.view || 'home'; kbxCat = kbxPrev.cat; kbxTrail = kbxPrev.trail; kbxSel = null; kbxCtx = null;
   renderConhecimento();
   window.scrollTo(0, kbxPrev.scroll || 0);
 }
-function selectKbArticle(id){ kbMode = 'guias'; kbxOpen(id); }
+function selectKbArticle(id){ kbxOpen(id); }
 
 function kbModeBar(){
   return `<div class="flex gap-2 mb-3 flex-wrap">
+    <button class="btn btn-sm ${kbMode==='percurso'?'btn-primary':'btn-outline'}" onclick="setKbMode('percurso')">🎓 O meu percurso</button>
     <button class="btn btn-sm ${kbMode==='guias'?'btn-primary':'btn-outline'}" onclick="setKbMode('guias')">📘 Guias rápidos</button>
     <button class="btn btn-sm ${kbMode==='biblioteca'?'btn-primary':'btn-outline'}" onclick="setKbMode('biblioteca')">📚 Biblioteca</button>
   </div>`;
 }
 function setKbMode(m){
   kbMode = m;
-  if(m==='guias' && kbxView==='article') kbxView = 'home';
+  if(m==='guias' && (kbxView==='article')) kbxView = 'home';
   renderConhecimento();
   kbxToTop();
 }
 function renderConhecimento(){
   const el = document.getElementById('panel-conhecimento');
   if(kbMode==='biblioteca'){ renderKbLibrary(); return; }
+  if(kbMode==='percurso'){ el.innerHTML = kbModeBar() + kbpHTML(); return; }
   el.innerHTML = kbModeBar() + (kbxView==='article' ? '' : kbxTopBar()) + `<div id="kbxBody">${kbxBodyHTML()}</div>`;
   if(kbxView==='article') kbxBindProgress();
 }
