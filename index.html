@@ -174,6 +174,83 @@ input,select,textarea{font-family:inherit;color:var(--ink);background:var(--surf
 .kb-body table{width:100%;border-collapse:collapse;margin:4px 0 16px;font-size:13.5px}
 .kb-body th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-faint);padding:0 10px 6px 0;border-bottom:1px solid var(--border)}
 .kb-body td{padding:7px 10px 7px 0;border-bottom:1px solid var(--border);vertical-align:top}
+/* ===== Guias rápidos: catálogo visual ===== */
+.kbx-top{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.kbx-search{position:relative;max-width:460px}
+.kbx-si{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.6;pointer-events:none}
+.kbx-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.kbx-chips::-webkit-scrollbar{display:none}
+@media(min-width:1024px){.kbx-chips{flex-wrap:wrap;overflow:visible}}
+.kbx-chip{flex:none;white-space:nowrap;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--ink-soft);cursor:pointer;transition:background .15s,color .15s}
+.kbx-chip:hover{background:var(--green-100);color:var(--green-700)}
+.kbx-chip.on{background:var(--green-700);border-color:var(--green-700);color:#fff}
+:root[data-theme="dark"] .kbx-chip.on{color:#10210F}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .kbx-chip.on{color:#10210F}}
+
+.kbx-hero{position:relative;border-radius:22px;overflow:hidden;min-height:340px;display:flex;align-items:flex-end;color:#fff;background:var(--kb-g,linear-gradient(135deg,#2A6B3A,#1F4429));box-shadow:var(--shadow)}
+.kbx-hero-sm{min-height:210px}
+.kbx-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,20,12,.84) 0%,rgba(8,20,12,.5) 52%,rgba(8,20,12,.08) 100%),linear-gradient(0deg,rgba(8,20,12,.55),transparent 55%)}
+.kbx-hero-in{position:relative;z-index:1;padding:30px;max-width:640px}
+.kbx-hero-in h2{font-size:34px;line-height:1.1;margin:6px 0 10px;color:#fff}
+.kbx-hero-sm .kbx-hero-in h2{font-size:28px}
+.kbx-hero-in p{font-size:14.5px;line-height:1.55;margin:0 0 16px;opacity:.94}
+.kbx-eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;opacity:.85}
+.kbx-glass{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(6px);cursor:pointer}
+.kbx-glass:hover{background:rgba(255,255,255,.3)}
+@media(max-width:640px){.kbx-hero{min-height:300px}.kbx-hero-in{padding:20px}.kbx-hero-in h2{font-size:26px}.kbx-hero-sm .kbx-hero-in h2{font-size:22px}}
+
+.kbx-shelves{display:flex;flex-direction:column;gap:6px;margin-top:22px}
+.kbx-rowwrap{position:relative}
+.kbx-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;padding:14px 6px 20px;margin:0 -6px;scrollbar-width:none}
+.kbx-row::-webkit-scrollbar{display:none}
+.kbx-arrow{position:absolute;top:50%;transform:translateY(-58%);z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--ink);box-shadow:var(--shadow);font-size:22px;line-height:1;cursor:pointer;opacity:0;transition:opacity .2s;display:none}
+@media(hover:hover){.kbx-arrow{display:block}.kbx-rowwrap:hover .kbx-arrow{opacity:1}}
+.kbx-arrow.l{left:-12px}.kbx-arrow.r{right:-12px}
+.kbx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.kbx-grid .kbx-card{width:auto}
+
+.kbx-card{position:relative;flex:none;width:252px;aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:var(--kb-g);cursor:pointer;color:#fff;box-shadow:var(--shadow);transition:transform .25s ease,box-shadow .25s ease;scroll-snap-align:start;outline-offset:2px}
+@media(hover:hover){.kbx-card:hover,.kbx-card:focus-visible{transform:translateY(-4px) scale(1.03);box-shadow:0 14px 30px rgba(0,0,0,.28);z-index:2}.kbx-card:hover .kbx-img{transform:scale(1.06)}}
+.kbx-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:54px;opacity:.3}
+.kbx-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease,transform .6s ease}
+.kbx-img.in{opacity:1}
+.kbx-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,16,10,.88) 0%,rgba(6,16,10,.38) 46%,rgba(6,16,10,0) 72%)}
+.kbx-tag{position:absolute;left:10px;top:10px;font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:rgba(0,0,0,.45);color:#fff;backdrop-filter:blur(4px);max-width:74%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kbx-fav{position:absolute;right:8px;top:8px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;font-size:16px;line-height:1;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.kbx-fav:hover{transform:scale(1.15)}
+.kbx-fav.on{color:#FF6B81}
+.kbx-cap{position:absolute;left:12px;right:12px;bottom:10px;display:flex;flex-direction:column;gap:3px}
+.kbx-t{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;line-height:1.2;text-shadow:0 1px 6px rgba(0,0,0,.55);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.kbx-m{font-size:11px;opacity:.88}
+@media(max-width:640px){.kbx-card{width:212px}.kbx-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}.kbx-t{font-size:13.5px}}
+
+.kbx-promo{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:14px 0 10px;padding:22px 26px;border-radius:20px;color:#fff;cursor:pointer;background:linear-gradient(120deg,#1F4429,#2A6B3A 55%,#3E9750);box-shadow:var(--shadow)}
+.kbx-promo:hover{filter:brightness(1.07)}
+
+.kbx-cover{position:relative;border-radius:22px;overflow:hidden;min-height:clamp(230px,34vw,340px);display:flex;align-items:flex-end;color:#fff;background:var(--kb-g);box-shadow:var(--shadow)}
+.kbx-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,16,10,.85) 0%,rgba(6,16,10,.3) 55%,rgba(6,16,10,.05) 100%)}
+.kbx-cover-in{position:relative;z-index:1;padding:26px 30px;max-width:820px}
+.kbx-cover-in h1{font-size:clamp(24px,3.6vw,36px);line-height:1.12;margin:0 0 8px;color:#fff}
+.kbx-credit{position:absolute;right:12px;bottom:8px;z-index:2;font-size:10px;color:#fff;opacity:.75;background:rgba(0,0,0,.35);padding:2px 8px;border-radius:999px;text-decoration:none;max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kbx-credit:hover{opacity:1}
+@media(max-width:640px){.kbx-cover-in{padding:18px}.kbx-credit{display:none}}
+
+.kbx-ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.kbx-gcard{text-align:left;border-radius:16px;overflow:hidden;background:var(--surface-2);border:1px solid var(--border);cursor:pointer;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+@media(hover:hover){.kbx-gcard:hover{transform:translateY(-3px);box-shadow:var(--shadow)}}
+.kbx-gimg{position:relative;display:block;height:120px;background:var(--kb-g);overflow:hidden}
+.kbx-gbody{display:block;padding:12px 14px 14px}
+.kbx-prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:70;pointer-events:none}
+.kbx-prog i{display:block;height:3px;width:0;background:var(--green-500);border-radius:0 3px 3px 0;transition:width .1s linear}
+.kbx-lead > p:first-child{font-size:17px;line-height:1.7;color:var(--ink)}
+.kbx-toc{text-align:left;font-size:13px;padding:7px 0;color:var(--ink-soft);border-bottom:1px solid var(--border);cursor:pointer}
+.kbx-toc:last-child{border-bottom:none}
+.kbx-toc:hover{color:var(--green-700)}
+.kbx-tocrow{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px;scrollbar-width:none}
+.kbx-tocrow::-webkit-scrollbar{display:none}
+.kbx-tocrow .kbx-toc{flex:none;white-space:nowrap;border:1px solid var(--border);border-radius:999px;padding:5px 12px;font-size:12px}
+@media(prefers-reduced-motion:reduce){.kbx-card,.kbx-img,.kbx-fav{transition:none}.kbx-card:hover{transform:none}}
+
 .kb-crumb{cursor:pointer}
 .kb-crumb:hover{text-decoration:underline}
 
@@ -415,6 +492,8 @@ function defaultDB(){
     pestDiagnoses: [], // {id,date,userId,cropId,cropName,symptoms,photo,matches:[{name,score}]}
     stockLevels: {}, // {'insumo:<id>'|'herbicida:<id>': {quantity,unit,lowThreshold,updatedAt}}
     stockMovements: [], // {id,date,kind:'insumo'|'herbicida',itemId,itemName,type:'entrada'|'saida'|'ajuste',quantity,unit,note,userId}
+    kbFav: [], // ids dos guias rápidos guardados como favoritos
+    kbRead: {}, // {idGuia: timestamp da última leitura}
     brandLogo: null, // dataURL — logótipo da empresa que substitui "Quinta Viva" no cabeçalho e nas etiquetas QR
   };
 }
@@ -5371,50 +5450,369 @@ function renderAnalises(){
     </div>
   `;
 }
-let kbCategory = 'all';
-let kbSearch = '';
-let kbSelectedId = null;
+/* =========================================================================
+   GUIAS RÁPIDOS — catálogo visual (destaque, prateleiras, capas, favoritos)
+   Fotos em kb/g/<id>.webp (e kb/g/cat-<categoria>.webp); sem foto, o cartão
+   mostra um degradê da categoria. Créditos das fotos em kb/g/credits.json.
+   ========================================================================= */
 let kbMode = 'guias';
+let kbxView = 'home';      // home | cat | article | search | favs
+let kbxCat = null;
+let kbxSel = null;
+let kbSearch = '';
+let kbxPrev = {view:'home', cat:null, scroll:0};
+let kbxCredits = null;
+const KBX_MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const KBX_CAT_GRAD = {
+  culturas:['#3E9750','#1F4429'], agrofloresta:['#2F7A3D','#14351E'], solo:['#8A5A3B','#3B2416'], insumos:['#7A6A3A','#2E2712'],
+  agua:['#2E8BC0','#12405F'], clima:['#E0A030','#8A4A14'], pragas:['#B5482F','#4E1A10'], mudas:['#6DB33F','#2B5A1B'],
+  medicinais:['#7B5EA7','#33224F'], 'saude-humana':['#C0587A','#5A1F38'], 'saude-animal':['#D9822B','#6B3210'],
+  manejo:['#5B6B7A','#222B33'], conservacao:['#C4473D','#5A1A16'],
+};
+// Sugestões por mês (clima de Portugal continental) — o destaque roda pelo dia do mês
+const KBX_SEASON = [
+  ['kb-proteger-geadas','kb-planeamento-sazonal','kb-compostagem-domestica','kb-manutencao-ferramentas','kb-estufa-mini-estufa-caseira','kb-analise-solo'],
+  ['kb-germinacao','kb-substratos-sementeira','kb-sementeira-direta-alveolos','kb-proteger-geadas','kb-analise-solo','kb-desenho-canteiros'],
+  ['kb-transplante-mudas','kb-horta-consorciada','kb-espacamento-densidade','kb-adubacao-verde','kb-germinacao','kb-problemas-comuns-mudas'],
+  ['kb-horta-consorciada','kb-associacoes-culturas','kb-cobertura-morta','kb-sistemas-rega','kb-controlo-biologico','kb-horta-medicinal'],
+  ['kb-cobertura-morta','kb-calendarizacao-rega','kb-identificacao-pragas-comuns','kb-controlo-biologico','kb-doencas-fungicas','kb-armadilhas-monitorizacao'],
+  ['kb-calendarizacao-rega','kb-ondas-calor','kb-sinais-stress-hidrico','kb-secar-conservar-medicinais','kb-colheita-poscolheita','kb-doencas-fungicas'],
+  ['kb-ondas-calor','kb-gestao-seca-prolongada','kb-captacao-agua-chuva','kb-colheita-poscolheita','kb-secagem-desidratacao','kb-conservas-vidro'],
+  ['kb-gestao-seca-prolongada','kb-conservas-vidro','kb-guardar-sementes','kb-secagem-desidratacao','kb-fermentacao-caseira','kb-sinais-stress-hidrico'],
+  ['kb-guardar-sementes','kb-adubacao-verde','kb-compostagem-domestica','kb-conservas-vinagre-oleo','kb-planeamento-sazonal','kb-armazenamento-raizes-tuberculos'],
+  ['kb-adubacao-verde','kb-compostagem-domestica','kb-cobertura-morta','kb-armazenamento-raizes-tuberculos','kb-erosao-do-solo','kb-captacao-agua-chuva'],
+  ['kb-erosao-do-solo','kb-quebraventos-microclimas','kb-compostagem-domestica','kb-especies-estruturantes-portugal','kb-manutencao-ferramentas','kb-congelacao-eficiente'],
+  ['kb-planeamento-sazonal','kb-proteger-geadas','kb-manutencao-ferramentas','kb-valor-registo-planeamento','kb-estufa-mini-estufa-caseira','kb-calendario-lunar'],
+];
+function kbxGrad(cat){ const g = KBX_CAT_GRAD[cat] || ['#3E9750','#1F4429']; return `linear-gradient(135deg,${g[0]},${g[1]})`; }
+
+let KBX_META = null, KBX_BY_ID = null;
+function kbxMeta(){
+  if(KBX_META) return KBX_META;
+  KBX_META = {}; KBX_BY_ID = {};
+  KNOWLEDGE.forEach(a=>{
+    const plain = a.body.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+    KBX_META[a.id] = {min: Math.max(1, Math.round(plain.split(' ').length/190)), plain, nt: kbNorm(a.title), nb: kbNorm(plain)};
+    KBX_BY_ID[a.id] = a;
+  });
+  return KBX_META;
+}
+function kbxArt(id){ kbxMeta(); return KBX_BY_ID[id]; }
+function kbxImgKey(id){ return kbNorm(id); }
+function kbxCatOf(id){ return KB_CATEGORIES.find(c=>c.id===id); }
+function kbxIdsOf(cat){ return KNOWLEDGE.filter(a=>a.cat===cat).map(a=>a.id); }
+
+/* ---- Favoritos e lidos (guardados na base de dados da app) ---- */
+function kbxFavs(){ if(!Array.isArray(DB.kbFav)) DB.kbFav = []; return DB.kbFav; }
+function kbxIsFav(id){ return kbxFavs().includes(id); }
+function kbxMarkRead(id){ if(!DB.kbRead || typeof DB.kbRead!=='object') DB.kbRead = {}; DB.kbRead[id] = Date.now(); saveDB(); }
+function kbxRecentIds(){ const r = DB.kbRead || {}; return Object.keys(r).filter(id=>kbxArt(id)).sort((a,b)=>r[b]-r[a]).slice(0,10); }
+function kbxToggleFav(id, ev){
+  if(ev){ ev.stopPropagation(); ev.preventDefault(); }
+  const f = kbxFavs(), i = f.indexOf(id), on = i < 0;
+  if(on) f.push(id); else f.splice(i,1);
+  saveDB();
+  document.querySelectorAll('[data-kbfav="'+id+'"]').forEach(b=>{
+    b.classList.toggle('on', on);
+    b.innerHTML = b.dataset.kbtext ? (on?'♥ Guardado':'♡ Guardar') : (on?'♥':'♡');
+  });
+  const w = document.getElementById('kbxFavWrap');
+  if(w) w.innerHTML = kbxShelf('♥ Os teus favoritos', 'Guias que guardaste para voltar a ler', f.slice().reverse());
+  const c = document.getElementById('kbxChips'); if(c) c.innerHTML = kbxChipsHTML();
+  if(kbxView==='favs') kbxRefresh();
+}
+
+/* ---- Créditos das fotografias ---- */
+function kbxLoadCredits(cb){
+  if(kbxCredits){ cb(); return; }
+  kbLoadJson('g/credits.json').then(d=>{ kbxCredits = d; cb(); }).catch(()=>{ kbxCredits = {}; cb(); });
+}
+function kbxCreditHTML(id){
+  const c = kbxCredits && kbxCredits[kbxImgKey(id)]; if(!c) return '';
+  return `<a href="${esc(c.u)}" target="_blank" rel="noopener noreferrer" class="kbx-credit" title="Ver a origem da fotografia">Foto: ${esc(c.a||'autor desconhecido')} · ${esc(c.l)} · Wikimedia Commons</a>`;
+}
+function kbxCreditsModal(){
+  openModal(`<div class="flex justify-between items-center mb-3"><h3 class="display font-semibold m-0" style="font-size:17px">Créditos das fotografias</h3><button class="btn btn-outline btn-sm" onclick="closeModal()">✕ Fechar</button></div><p class="text-xs mb-3" style="color:var(--ink-faint)">Fotografias do Wikimedia Commons com licenças livres (Creative Commons e domínio público). Obrigado aos autores.</p><div id="kbxCreditsList" class="text-sm" style="color:var(--ink-faint)">A carregar…</div>`);
+  kbxLoadCredits(()=>{
+    const el = document.getElementById('kbxCreditsList'); if(!el) return;
+    const rows = Object.keys(kbxCredits).map(k=>{
+      const c = kbxCredits[k];
+      const g = KNOWLEDGE.find(a=>kbxImgKey(a.id)===k);
+      const name = k.startsWith('cat-') ? 'Capa · '+((kbxCatOf(k.slice(4))||{}).label||k) : (g?g.title:k);
+      return `<div class="py-2" style="border-top:1px solid var(--border)"><div class="font-semibold text-xs" style="color:var(--ink)">${esc(name)}</div><a class="text-xs" style="color:var(--blue-600)" href="${esc(c.u)}" target="_blank" rel="noopener noreferrer">${esc(c.a||'autor desconhecido')} · ${esc(c.l)}</a></div>`;
+    });
+    el.style.color = ''; el.innerHTML = rows.join('') || 'Sem créditos disponíveis.';
+  });
+}
+
+/* ---- Blocos visuais ---- */
+function kbxLead(a, max){
+  const first = (a.body.match(/<p>([\s\S]*?)<\/p>/)||[])[1] || '';
+  const s = first.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+  if(s.length <= max) return s;
+  const cut = s.slice(0, max), i = cut.lastIndexOf('. ');
+  return i > 70 ? cut.slice(0, i+1) : cut.slice(0, cut.lastIndexOf(' ')) + '…';
+}
+function kbxCard(id){
+  const a = kbxArt(id); if(!a) return '';
+  const cat = kbxCatOf(a.cat), m = kbxMeta()[id], fav = kbxIsFav(id), read = DB.kbRead && DB.kbRead[id];
+  return `<div class="kbx-card" role="link" tabindex="0" style="--kb-g:${kbxGrad(a.cat)}" onclick="kbxOpen('${id}')" onkeydown="if(event.key==='Enter')kbxOpen('${id}')" aria-label="${esc(a.title)}">
+    <span class="kbx-ph">${cat?cat.icon:'🌿'}</span>
+    <img class="kbx-img" src="kb/g/${kbxImgKey(id)}.webp" loading="lazy" alt="" onload="this.classList.add('in')" onerror="this.remove()">
+    <span class="kbx-shade"></span>
+    <span class="kbx-tag">${cat?cat.icon+' '+esc(cat.label):''}</span>
+    <button class="kbx-fav ${fav?'on':''}" data-kbfav="${id}" onclick="kbxToggleFav('${id}',event)" aria-label="Guardar nos favoritos" title="Guardar nos favoritos">${fav?'♥':'♡'}</button>
+    <span class="kbx-cap"><span class="kbx-t">${esc(a.title)}</span><span class="kbx-m">⏱ ${m.min} min${read?' · ✓ Lido':''}</span></span>
+  </div>`;
+}
+function kbxShelf(title, sub, ids, opts){
+  ids = (ids||[]).filter(id=>kbxArt(id)); if(!ids.length) return '';
+  opts = opts || {};
+  return `<section class="kbx-shelf">
+    <div class="flex items-end justify-between gap-3 px-1">
+      <div><h3 class="display font-semibold m-0" style="font-size:18px">${title}</h3>${sub?`<div class="text-xs" style="color:var(--ink-faint)">${sub}</div>`:''}</div>
+      ${opts.cat?`<button class="text-xs font-semibold flex-none" style="color:var(--green-700)" onclick="kbxOpenCat('${opts.cat}')">Ver tudo (${opts.total||ids.length}) ›</button>`:''}
+    </div>
+    <div class="kbx-rowwrap">
+      <button class="kbx-arrow l" onclick="kbxArrow(this,-1)" aria-label="Anterior">‹</button>
+      <div class="kbx-row">${ids.map(id=>kbxCard(id)).join('')}</div>
+      <button class="kbx-arrow r" onclick="kbxArrow(this,1)" aria-label="Seguinte">›</button>
+    </div>
+  </section>`;
+}
+function kbxArrow(btn, dir){ const row = btn.parentElement.querySelector('.kbx-row'); if(row) row.scrollBy({left: dir*row.clientWidth*0.85, behavior:'smooth'}); }
+function kbxWarn(catId){
+  if(catId!=='saude-humana' && catId!=='saude-animal' && catId!=='medicinais') return '';
+  const who = catId==='saude-animal' ? 'médico veterinário' : 'médico';
+  return `<div class="p-3 rounded-xl mb-4 text-xs" style="background:var(--yellow-100);color:var(--yellow-600)">⚠️ Informação de caráter tradicional/educativo — não substitui o parecer de um ${who}. Em caso de doença grave, persistente, ou em crianças, grávidas ou animais debilitados, procura sempre acompanhamento profissional.</div>`;
+}
+
+/* ---- Sugestão "Para a tua horta agora": cruza o que está plantado com os guias ---- */
+function kbxHortaPicks(){
+  const names = new Set();
+  const add = n=>{ n = kbNorm(n||'').trim(); if(n.length>=4) names.add(n); };
+  (DB.plantings||[]).forEach(p=>{ if(p.status==='Pousio' || p.harvestedDate) return; const c = cropById(p.cropId); if(c) add(c.name); });
+  (DB.estufaPlantings||[]).forEach(p=>{ if(p.status==='Colheita') return; add(p.cropName); });
+  (DB.seedlings||[]).forEach(s=>{ if(!s.transplantDate) add(s.cropName); });
+  if(!names.size) return null;
+  const meta = kbxMeta(), score = {};
+  names.forEach(n=>{
+    const term = n.split(/[\s\-\/(]/)[0];
+    if(term.length < 4) return;
+    KNOWLEDGE.forEach(a=>{
+      const m = meta[a.id]; let s = 0;
+      if(m.nt.includes(term)) s += 4;
+      const cnt = m.nb.split(term).length - 1;
+      if(cnt) s += cnt >= 3 ? 2 : 1;
+      if(s) score[a.id] = (score[a.id]||0) + s;
+    });
+  });
+  const ids = Object.keys(score).sort((a,b)=>score[b]-score[a]).slice(0,10);
+  if(!ids.length) return null;
+  const shown = Array.from(names).slice(0,4).map(n=>n.charAt(0).toUpperCase()+n.slice(1));
+  return {ids, label: shown.join(', ') + (names.size>4?'…':'')};
+}
+
+/* ---- Vistas ---- */
+function kbxHeroId(){
+  const now = new Date(), ids = (KBX_SEASON[now.getMonth()]||[]).filter(id=>kbxArt(id));
+  return ids.length ? ids[now.getDate() % ids.length] : KNOWLEDGE[0].id;
+}
+function kbxHeroHTML(id){
+  const a = kbxArt(id), cat = kbxCatOf(a.cat), m = kbxMeta()[id], fav = kbxIsFav(id);
+  return `<div class="kbx-hero" style="--kb-g:${kbxGrad(a.cat)}">
+    <span class="kbx-ph" style="font-size:130px">${cat.icon}</span>
+    <img class="kbx-img in-eager" src="kb/g/${kbxImgKey(id)}.webp" alt="" onload="this.classList.add('in')" onerror="this.remove()">
+    <div class="kbx-hero-in">
+      <div class="kbx-eyebrow">Em destaque · ${KBX_MONTHS[new Date().getMonth()]}</div>
+      <h2 class="display">${esc(a.title)}</h2>
+      <p>${esc(kbxLead(a,190))}</p>
+      <div class="flex gap-2 flex-wrap items-center">
+        <button class="btn btn-primary" onclick="kbxOpen('${id}')">▶ Ler agora</button>
+        <button class="btn kbx-glass" data-kbfav="${id}" data-kbtext="1" onclick="kbxToggleFav('${id}',event)">${fav?'♥ Guardado':'♡ Guardar'}</button>
+        <span class="text-xs" style="opacity:.9">⏱ ${m.min} min · ${cat.icon} ${esc(cat.label)}</span>
+      </div>
+    </div>
+  </div>`;
+}
+function kbxHomeHTML(){
+  const now = new Date(), heroId = kbxHeroId();
+  const month = (KBX_SEASON[now.getMonth()]||[]).filter(id=>id!==heroId);
+  const horta = kbxHortaPicks();
+  const quick = KNOWLEDGE.map(a=>a.id).sort((x,y)=>kbxMeta()[x].plain.length-kbxMeta()[y].plain.length).slice(0,10);
+  const recent = kbxRecentIds();
+  return kbxHeroHTML(heroId) + `<div class="kbx-shelves">
+    ${recent.length? kbxShelf('Vistos recentemente', 'Retoma de onde ficaste', recent) : ''}
+    <div id="kbxFavWrap">${kbxFavs().length? kbxShelf('♥ Os teus favoritos', 'Guias que guardaste para voltar a ler', kbxFavs().slice().reverse()) : ''}</div>
+    ${kbxShelf('Para fazer em '+KBX_MONTHS[now.getMonth()].toLowerCase(), 'Escolhas para esta altura do ano em Portugal', month)}
+    ${horta? kbxShelf('Para a tua horta agora', 'Com base no que tens plantado: '+esc(horta.label), horta.ids) : ''}
+    ${kbxShelf('Leituras rápidas', 'Os guias mais curtos, para ler num minuto', quick)}
+    ${KB_CATEGORIES.map(c=>{ const ids = kbxIdsOf(c.id); return kbxShelf(c.icon+' '+esc(c.label), ids.length+' guias', ids, {cat:c.id, total:ids.length}); }).join('')}
+    <div class="kbx-promo" onclick="setKbMode('biblioteca')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')setKbMode('biblioteca')">
+      <div><div class="display font-semibold" style="font-size:18px">📚 Vai mais fundo na Biblioteca</div>
+      <div class="text-sm" style="opacity:.9">58 volumes técnicos, 3 480 unidades, glossário e fontes oficiais.</div></div>
+      <span class="btn kbx-glass">Abrir Biblioteca ›</span>
+    </div>
+    <div class="text-center text-xs pb-2" style="color:var(--ink-faint)">Fotografias: Wikimedia Commons, licenças livres. <button class="underline" onclick="kbxCreditsModal()">Ver créditos</button></div>
+  </div>`;
+}
+function kbxCatHTML(cid){
+  const c = kbxCatOf(cid); if(!c) return kbxHomeHTML();
+  const ids = kbxIdsOf(cid), mins = ids.reduce((s,id)=>s+kbxMeta()[id].min,0);
+  return `<div class="kbx-hero kbx-hero-sm" style="--kb-g:${kbxGrad(cid)}">
+    <span class="kbx-ph" style="font-size:110px">${c.icon}</span>
+    <img class="kbx-img" src="kb/g/cat-${cid}.webp" alt="" onload="this.classList.add('in')" onerror="this.remove()">
+    <div class="kbx-hero-in"><div class="kbx-eyebrow">Categoria</div><h2 class="display">${c.icon} ${esc(c.label)}</h2>
+    <p style="margin-bottom:0">${ids.length} guias · cerca de ${mins} minutos de leitura</p></div>
+  </div>
+  <div class="mt-4">${kbxWarn(cid)}<div class="kbx-grid">${ids.map(id=>kbxCard(id)).join('')}</div></div>`;
+}
+function kbxFavsHTML(){
+  const f = kbxFavs().slice().reverse().filter(id=>kbxArt(id));
+  return `<h2 class="display font-semibold mb-1" style="font-size:22px">♥ Os teus favoritos</h2>
+  <p class="text-sm mb-4" style="color:var(--ink-faint)">${f.length? f.length+' guia'+(f.length>1?'s':'')+' guardado'+(f.length>1?'s':'') : 'Ainda não guardaste nenhum guia. Toca no ♡ de qualquer cartão para o guardar aqui.'}</p>
+  <div class="kbx-grid">${f.map(id=>kbxCard(id)).join('')}</div>`;
+}
+function kbxSearchIds(q){
+  const terms = kbNorm(q).trim().split(/\s+/).filter(Boolean); if(!terms.length) return [];
+  const meta = kbxMeta(), out = [];
+  KNOWLEDGE.forEach(a=>{
+    const m = meta[a.id]; let s = 0;
+    for(const t of terms){ if(m.nt.includes(t)) s += 5; else if(m.nb.includes(t)) s += 1; else return; }
+    out.push({id:a.id, s});
+  });
+  return out.sort((x,y)=>y.s-x.s).map(x=>x.id);
+}
+function kbxSearchHTML(){
+  const ids = kbxSearchIds(kbSearch);
+  return `<p class="text-sm mb-3" style="color:var(--ink-faint)">${ids.length? ids.length+' resultado'+(ids.length>1?'s':'')+' para “'+esc(kbSearch.trim())+'”' : 'Sem resultados para “'+esc(kbSearch.trim())+'”. Experimenta uma palavra mais simples, como “rega”, “tomate” ou “galinhas”.'}</p>
+  <div class="kbx-grid">${ids.map(id=>kbxCard(id)).join('')}</div>`;
+}
+function kbxArticleHTML(id){
+  const a = kbxArt(id); if(!a) return kbxHomeHTML();
+  const cat = kbxCatOf(a.cat), m = kbxMeta()[id], fav = kbxIsFav(id);
+  const heads = []; let n = 0;
+  const body = a.body.replace(/<h4>([\s\S]*?)<\/h4>/g, (_, t)=>{ n++; heads.push(t.replace(/<[^>]+>/g,'')); return `<h4 id="kbh-${n}">${t}</h4>`; });
+  const siblings = kbxIdsOf(a.cat), pos = siblings.indexOf(id);
+  const prev = pos > 0 ? siblings[pos-1] : null, next = pos < siblings.length-1 ? siblings[pos+1] : null;
+  const related = siblings.slice(pos+1).concat(siblings.slice(0,pos)).slice(0,8);
+  kbxLoadCredits(()=>{ const el = document.getElementById('kbxCredit'); if(el) el.innerHTML = kbxCreditHTML(id); });
+  const tocBtns = heads.map((h,i)=>`<button class="kbx-toc" onclick="kbxJump(${i+1})">${esc(h)}</button>`).join('');
+  return `<div id="kbxArticle">
+    <div class="kbx-prog"><i id="kbxProg"></i></div>
+    <button class="btn btn-ghost btn-sm mb-3" onclick="kbxBackTo()">‹ Voltar</button>
+    <div class="kbx-cover" style="--kb-g:${kbxGrad(a.cat)}">
+      <span class="kbx-ph" style="font-size:120px">${cat?cat.icon:'🌿'}</span>
+      <img class="kbx-img" src="kb/g/${kbxImgKey(id)}.webp" alt="" onload="this.classList.add('in')" onerror="this.remove()">
+      <div class="kbx-cover-in">
+        <span class="kbx-tag" style="position:static;display:inline-block;margin-bottom:8px">${cat?cat.icon+' '+esc(cat.label):''}</span>
+        <h1 class="display">${esc(a.title)}</h1>
+        <div class="text-xs" style="opacity:.9">⏱ ${m.min} min de leitura${DB.kbRead&&DB.kbRead[id]?' · ✓ Lido':''}</div>
+      </div>
+      <div id="kbxCredit">${kbxCreditHTML(id)}</div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] gap-4 mt-4" style="align-items:start">
+      <div class="card p-5 md:p-8">
+        ${heads.length>=3? `<div class="kbx-tocrow lg:hidden">${tocBtns}</div>`:''}
+        ${kbxWarn(a.cat)}
+        <div class="kb-body kbx-lead">${body}</div>
+        <div class="flex justify-between gap-2 flex-wrap mt-6 pt-4" style="border-top:1px solid var(--border)">
+          ${prev? `<button class="btn btn-outline btn-sm" style="text-align:left" onclick="kbxOpen('${prev}')">‹ ${esc(kbxArt(prev).title)}</button>`:'<span></span>'}
+          ${next? `<button class="btn btn-outline btn-sm" style="text-align:left" onclick="kbxOpen('${next}')">${esc(kbxArt(next).title)} ›</button>`:''}
+        </div>
+      </div>
+      <aside class="order-first lg:order-last flex flex-col gap-3">
+        <div class="card p-4">
+          <button class="btn w-full ${fav?'btn-primary':'btn-outline'}" data-kbfav="${id}" data-kbtext="1" onclick="kbxToggleFav('${id}',event)">${fav?'♥ Guardado':'♡ Guardar'}</button>
+        </div>
+        ${heads.length>=3? `<div class="card p-4 hidden lg:block"><div class="text-xs font-semibold mb-2" style="color:var(--ink-faint);letter-spacing:.04em;text-transform:uppercase">Neste guia</div><div class="flex flex-col">${tocBtns}</div></div>`:''}
+      </aside>
+    </div>
+    <div class="mt-6">${kbxShelf('Continua a explorar', esc(cat?cat.label:''), related)}</div>
+    <div class="text-center text-xs py-3" style="color:var(--ink-faint)"><button class="underline" onclick="kbxCreditsModal()">Créditos das fotografias</button></div>
+  </div>`;
+}
+function kbxToTop(){ window.scrollTo(0,0); const m=document.getElementById('mainContent'); if(m) m.scrollTop=0; }
+function kbxJump(n){ const el = document.getElementById('kbh-'+n); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }
+function kbxBindProgress(){
+  if(window._kbxP) window.removeEventListener('scroll', window._kbxP);
+  window._kbxP = function(){
+    const bar = document.getElementById('kbxProg'), art = document.getElementById('kbxArticle');
+    if(!bar || !art){ window.removeEventListener('scroll', window._kbxP); window._kbxP = null; return; }
+    const r = art.getBoundingClientRect(), vh = window.innerHeight, total = Math.max(1, r.height - vh*0.6);
+    bar.style.width = (Math.min(1, Math.max(0, (-r.top + vh*0.2)/total))*100) + '%';
+  };
+  window.addEventListener('scroll', window._kbxP, {passive:true});
+  window._kbxP();
+}
+
+/* ---- Navegação ---- */
+function kbxTopBar(){
+  return `<div class="kbx-top"><div class="kbx-search"><span class="kbx-si">🔍</span><input id="kbxSearch" class="field" style="padding-left:36px" placeholder="Procurar nos guias…" value="${esc(kbSearch)}" oninput="kbxSearchInput(this.value)" autocomplete="off"></div>
+  <div class="kbx-chips" id="kbxChips">${kbxChipsHTML()}</div></div>`;
+}
+function kbxChipsHTML(){
+  const nf = kbxFavs().length;
+  return `<button class="kbx-chip ${kbxView==='home'?'on':''}" onclick="kbxHome()">Início</button>` +
+    KB_CATEGORIES.map(c=>`<button class="kbx-chip ${kbxView==='cat'&&kbxCat===c.id?'on':''}" onclick="kbxOpenCat('${c.id}')">${c.icon} ${esc(c.label)}</button>`).join('') +
+    `<button class="kbx-chip ${kbxView==='favs'?'on':''}" onclick="kbxOpenFavs()">♥ Favoritos${nf?' ('+nf+')':''}</button>`;
+}
+function kbxBodyHTML(){
+  if(kbxView==='article') return kbxArticleHTML(kbxSel);
+  if(kbxView==='cat') return kbxCatHTML(kbxCat);
+  if(kbxView==='favs') return kbxFavsHTML();
+  if(kbxView==='search') return kbxSearchHTML();
+  return kbxHomeHTML();
+}
+function kbxRefresh(){
+  const b = document.getElementById('kbxBody'); if(b) b.innerHTML = kbxBodyHTML();
+  const c = document.getElementById('kbxChips'); if(c) c.innerHTML = kbxChipsHTML();
+}
+function kbxGoto(view, cat){
+  kbSearch = ''; const s = document.getElementById('kbxSearch'); if(s) s.value = '';
+  kbxView = view; kbxCat = cat || null; kbxRefresh();
+  kbxToTop();
+}
+function kbxHome(){ kbxGoto('home'); }
+function kbxOpenCat(c){ kbxGoto('cat', c); }
+function kbxOpenFavs(){ kbxGoto('favs'); }
+function kbxSearchInput(v){
+  kbSearch = v;
+  kbxView = v.trim() ? 'search' : 'home'; kbxCat = null;
+  kbxRefresh();
+}
+function kbxOpen(id){
+  if(kbxView !== 'article') kbxPrev = {view:kbxView, cat:kbxCat, scroll:window.scrollY||0};
+  kbxView = 'article'; kbxSel = id; kbxMarkRead(id);
+  renderConhecimento();
+  kbxToTop();
+  kbxBindProgress();
+}
+function kbxBackTo(){
+  kbxView = kbxPrev.view || 'home'; kbxCat = kbxPrev.cat; kbxSel = null;
+  renderConhecimento();
+  window.scrollTo(0, kbxPrev.scroll || 0);
+}
+function selectKbArticle(id){ kbMode = 'guias'; kbxOpen(id); }
+
 function kbModeBar(){
   return `<div class="flex gap-2 mb-3 flex-wrap">
     <button class="btn btn-sm ${kbMode==='guias'?'btn-primary':'btn-outline'}" onclick="setKbMode('guias')">📘 Guias rápidos</button>
     <button class="btn btn-sm ${kbMode==='biblioteca'?'btn-primary':'btn-outline'}" onclick="setKbMode('biblioteca')">📚 Biblioteca</button>
   </div>`;
 }
-function setKbMode(m){ kbMode=m; renderConhecimento(); }
+function setKbMode(m){
+  kbMode = m;
+  if(m==='guias' && kbxView==='article') kbxView = 'home';
+  renderConhecimento();
+  kbxToTop();
+}
 function renderConhecimento(){
   const el = document.getElementById('panel-conhecimento');
   if(kbMode==='biblioteca'){ renderKbLibrary(); return; }
-  const filtered = KNOWLEDGE.filter(a=>{
-    if(kbCategory!=='all' && a.cat!==kbCategory) return false;
-    if(kbSearch){ const q=kbSearch.toLowerCase(); return a.title.toLowerCase().includes(q) || a.body.toLowerCase().includes(q); }
-    return true;
-  });
-  if(!kbSelectedId || !filtered.find(a=>a.id===kbSelectedId)) kbSelectedId = filtered[0]?.id || null;
-  const selected = KNOWLEDGE.find(a=>a.id===kbSelectedId);
-  el.innerHTML = kbModeBar() + `
-    <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4" style="align-items:start">
-      <div class="card p-3">
-        <input class="field mb-2" placeholder="Procurar nos guias…" value="${(kbSearch||'').replace(/"/g,'&quot;')}" oninput="setKbSearch(this.value)">
-        <div class="flex flex-wrap gap-1 mb-3">
-          <button class="btn btn-sm ${kbCategory==='all'?'btn-primary':'btn-ghost'}" onclick="setKbCategory('all')">Tudo</button>
-          ${KB_CATEGORIES.map(c=>`<button class="btn btn-sm ${kbCategory===c.id?'btn-primary':'btn-ghost'}" onclick="setKbCategory('${c.id}')">${c.icon} ${c.label}</button>`).join('')}
-        </div>
-        <div class="flex flex-col gap-1" style="max-height:62vh;overflow-y:auto">
-          ${filtered.map(a=>`<button class="text-left px-3 py-2 rounded-lg text-sm" style="background:${a.id===kbSelectedId?'var(--green-100)':'transparent'}" onclick="selectKbArticle('${a.id}')">
-            <div class="font-semibold" style="color:${a.id===kbSelectedId?'var(--green-700)':'var(--ink)'}">${a.title}</div>
-            <div class="text-xs" style="color:var(--ink-faint)">${KB_CATEGORIES.find(c=>c.id===a.cat)?.label||''}</div>
-          </button>`).join('') || `<p class="text-sm p-2" style="color:var(--ink-faint)">Sem resultados para esta procura.</p>`}
-        </div>
-      </div>
-      <div class="card p-6">
-        ${selected? renderKbArticle(selected) : `<p style="color:var(--ink-faint)">Seleciona um tópico à esquerda.</p>`}
-      </div>
-    </div>`;
+  el.innerHTML = kbModeBar() + (kbxView==='article' ? '' : kbxTopBar()) + `<div id="kbxBody">${kbxBodyHTML()}</div>`;
+  if(kbxView==='article') kbxBindProgress();
 }
-function setKbCategory(c){ kbCategory=c; kbSelectedId=null; renderConhecimento(); }
-function setKbSearch(v){ kbSearch=v; renderConhecimento(); }
-function selectKbArticle(id){ kbSelectedId=id; renderConhecimento(); }
 /* =========================================================================
    BIBLIOTECA — 58 volumes técnicos carregados sob demanda de kb/*.json
    (índice e modelos comuns primeiro; cada volume só quando é aberto)
@@ -5428,6 +5826,7 @@ const KB_SAFETY = {
   chem:'Autorizações, doses e prazos de segurança de produtos fitofarmacêuticos mudam com frequência: confirma sempre o rótulo e a legislação em vigor antes de aplicar.',
   food:'A conservação de alimentos envolve risco de intoxicação. Cumpre com rigor os parâmetros de higiene, acidez, temperatura e tempo, e descarta em caso de dúvida.',
 };
+const KB_GROUP_CAT = {1:'culturas',2:'agrofloresta',3:'solo',4:'agua',5:'clima',6:'pragas',7:'mudas',8:'medicinais',9:'saude-humana',10:'saude-animal',11:'manejo',12:'conservacao'};
 const KB_GROUP_ICONS = {1:'🌱',2:'🌳',3:'🟤',4:'💧',5:'☀️',6:'🐛',7:'🌿',8:'🌾',9:'🧑‍⚕️',10:'🐔',11:'🛠️',12:'🫙'};
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function kbNorm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
@@ -5450,7 +5849,7 @@ function kbGo(view, p){
   kbLib = Object.assign({view, group:kbLib.group, vol:null, ch:null, unit:null, ap:null, q:kbLib.q, sec:null}, p);
   kbLibError = null;
   renderKbLibrary();
-  const mc = document.getElementById('mainContent'); if(mc) mc.scrollTo({top:0});
+  kbxToTop();
 }
 function kbGroupOf(vn){ return KB_LIB.index.vols.find(v=>v.n===vn).g; }
 function kbVolMeta(vn){ return KB_LIB.index.vols.find(v=>v.n===vn); }
@@ -5558,12 +5957,13 @@ function kbHomeHTML(){
     <p class="text-sm mb-4" style="color:var(--ink-soft)">${ix.vols.length} volumes · ${ix.groups.length} áreas · ${totalUnits.toLocaleString('pt-PT')} unidades técnicas, com glossário e fontes institucionais. Pensada para consulta no campo, com procedimentos, indicadores e limites de cada tema.</p>
     <div class="p-3 rounded-xl mb-3 text-xs" style="background:var(--yellow-100);color:var(--yellow-600);line-height:1.55">⚠️ Material de apoio educativo, com foco em Portugal e clima mediterrânico. Doses, autorizações, limites legais e temas de saúde humana ou animal exigem confirmação em fonte oficial vigente e, quando aplicável, a orientação de um profissional (agrónomo, médico ou veterinário) antes de decidir.</div>
     <div class="p-3 rounded-xl mb-4 text-xs" style="background:var(--surface-2);line-height:1.55">${ix.vols.filter(x=>x.dev).length} volumes com conteúdo desenvolvido (${ix.vols.filter(x=>x.dev).map(x=>'Vol. '+x.n).join(', ')}) e ${ix.vols.filter(x=>!x.dev).length} com <b>estrutura-guia</b>: capítulos e temas definidos, com fichas que seguem um modelo comum (passos, indicadores e método de decisão gerais). O texto específico de cada tema está em preparação.</div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-      ${ix.groups.map(g=>`<button class="text-left p-4 rounded-xl" style="background:var(--surface-2)" onclick="kbGo('group',{group:${g.id}})">
-        <div class="font-semibold mb-1">${KB_GROUP_ICONS[g.id]||''} ${esc(g.title)}</div>
-        <div class="text-xs mb-2" style="color:var(--ink-soft)">${esc(g.desc)}</div>
-        <div class="text-xs" style="color:var(--ink-faint)">${g.vols.length} volume${g.vols.length>1?'s':''} · ${g.vols.reduce((s,vn)=>s+kbVolMeta(vn).units,0)} unidades</div>
-      </button>`).join('')}
+    <div class="kbx-ggrid">
+      ${ix.groups.map(g=>{ const cid = KB_GROUP_CAT[g.id]; return `<button class="kbx-gcard" style="--kb-g:${kbxGrad(cid)}" onclick="kbGo('group',{group:${g.id}})">
+        <span class="kbx-gimg"><span class="kbx-ph" style="font-size:44px">${KB_GROUP_ICONS[g.id]||''}</span><img class="kbx-img" src="kb/g/cat-${cid}.webp" loading="lazy" alt="" onload="this.classList.add('in')" onerror="this.remove()"></span>
+        <span class="kbx-gbody"><span class="font-semibold block mb-1">${KB_GROUP_ICONS[g.id]||''} ${esc(g.title)}</span>
+        <span class="text-xs block mb-2" style="color:var(--ink-soft)">${esc(g.desc)}</span>
+        <span class="text-xs block" style="color:var(--ink-faint)">${g.vols.length} volume${g.vols.length>1?'s':''} · ${g.vols.reduce((sum,vn)=>sum+kbVolMeta(vn).units,0)} unidades</span></span>
+      </button>`; }).join('')}
     </div>`;
 }
 function kbGroupHTML(){
@@ -5699,17 +6099,6 @@ function kbSourcesHTML(){
   return `<h2 class="display font-semibold mb-1" style="font-size:20px">Fontes e leituras de aprofundamento</h2>
     <p class="text-xs mb-3" style="color:var(--ink-faint)">${KB_LIB.sources.length} fontes institucionais e científicas citadas nos volumes. As ligações servem para confirmar edições, métodos e enquadramentos que evoluem.</p>
     ${KB_LIB.sources.map(s=>`<div class="py-2" style="border-top:1px solid var(--border)"><div class="font-semibold text-sm">${esc(s.name)}</div>${s.desc?`<div class="text-xs" style="color:var(--ink-soft)">${esc(s.desc)}</div>`:''}${/^https?:\/\//.test(s.url)?`<a class="text-xs" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue-600);word-break:break-all">${esc(s.url)}</a>`:''}<div class="text-xs mt-1" style="color:var(--ink-faint)">${s.v.map(n=>`<button class="underline mr-2" onclick="kbGo('volume',{group:${kbGroupOf(n)},vol:${n}})">Vol. ${n}</button>`).join('')}</div></div>`).join('')}`;
-}
-
-function renderKbArticle(a){
-  const cat = KB_CATEGORIES.find(c=>c.id===a.cat);
-  const warn = (a.cat==='saude-humana'||a.cat==='saude-animal')? `<div class="p-3 rounded-xl mb-4 text-xs" style="background:var(--yellow-100);color:var(--yellow-600)">⚠️ Informação de caráter tradicional/educativo — não substitui o parecer de um ${a.cat==='saude-humana'?'médico':'médico veterinário'}. Em caso de doença grave, persistente, ou em crianças, grávidas ou animais debilitados, procura sempre acompanhamento profissional.</div>` : '';
-  return `
-    <div class="mb-1"><span class="pill pill-neutral">${cat?.icon||''} ${cat?.label||''}</span></div>
-    <h2 class="display font-semibold mt-2 mb-4" style="font-size:22px">${a.title}</h2>
-    ${warn}
-    <div class="kb-body">${a.body}</div>
-  `;
 }
 
 /* =========================================================================
