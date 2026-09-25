@@ -5374,8 +5374,17 @@ function renderAnalises(){
 let kbCategory = 'all';
 let kbSearch = '';
 let kbSelectedId = null;
+let kbMode = 'guias';
+function kbModeBar(){
+  return `<div class="flex gap-2 mb-3 flex-wrap">
+    <button class="btn btn-sm ${kbMode==='guias'?'btn-primary':'btn-outline'}" onclick="setKbMode('guias')">📘 Guias rápidos</button>
+    <button class="btn btn-sm ${kbMode==='biblioteca'?'btn-primary':'btn-outline'}" onclick="setKbMode('biblioteca')">📚 Biblioteca</button>
+  </div>`;
+}
+function setKbMode(m){ kbMode=m; renderConhecimento(); }
 function renderConhecimento(){
   const el = document.getElementById('panel-conhecimento');
+  if(kbMode==='biblioteca'){ renderKbLibrary(); return; }
   const filtered = KNOWLEDGE.filter(a=>{
     if(kbCategory!=='all' && a.cat!==kbCategory) return false;
     if(kbSearch){ const q=kbSearch.toLowerCase(); return a.title.toLowerCase().includes(q) || a.body.toLowerCase().includes(q); }
@@ -5383,10 +5392,10 @@ function renderConhecimento(){
   });
   if(!kbSelectedId || !filtered.find(a=>a.id===kbSelectedId)) kbSelectedId = filtered[0]?.id || null;
   const selected = KNOWLEDGE.find(a=>a.id===kbSelectedId);
-  el.innerHTML = `
+  el.innerHTML = kbModeBar() + `
     <div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4" style="align-items:start">
       <div class="card p-3">
-        <input class="field mb-2" placeholder="Procurar na biblioteca…" value="${(kbSearch||'').replace(/"/g,'&quot;')}" oninput="setKbSearch(this.value)">
+        <input class="field mb-2" placeholder="Procurar nos guias…" value="${(kbSearch||'').replace(/"/g,'&quot;')}" oninput="setKbSearch(this.value)">
         <div class="flex flex-wrap gap-1 mb-3">
           <button class="btn btn-sm ${kbCategory==='all'?'btn-primary':'btn-ghost'}" onclick="setKbCategory('all')">Tudo</button>
           ${KB_CATEGORIES.map(c=>`<button class="btn btn-sm ${kbCategory===c.id?'btn-primary':'btn-ghost'}" onclick="setKbCategory('${c.id}')">${c.icon} ${c.label}</button>`).join('')}
@@ -5406,6 +5415,292 @@ function renderConhecimento(){
 function setKbCategory(c){ kbCategory=c; kbSelectedId=null; renderConhecimento(); }
 function setKbSearch(v){ kbSearch=v; renderConhecimento(); }
 function selectKbArticle(id){ kbSelectedId=id; renderConhecimento(); }
+/* =========================================================================
+   BIBLIOTECA — 58 volumes técnicos carregados sob demanda de kb/*.json
+   (índice e modelos comuns primeiro; cada volume só quando é aberto)
+   ========================================================================= */
+const KB_LIB = {index:null, common:null, vols:{}, search:null, glossary:null, sources:null};
+let kbLib = {view:'home', group:null, vol:null, ch:null, unit:null, ap:null, q:'', sec:null};
+let kbLibError = null;
+const KB_SAFETY = {
+  health:'Conteúdo educativo sobre saúde humana e plantas medicinais — não substitui o parecer de um médico. Doses e usos tradicionais dependem da preparação e da pessoa; perante sintomas graves ou persistentes, ou em crianças, grávidas e idosos, procura acompanhamento profissional.',
+  vet:'Conteúdo educativo sobre saúde animal — não substitui o médico veterinário. Perante sinais graves ou doença a alastrar no grupo, contacta um veterinário e as autoridades competentes.',
+  chem:'Autorizações, doses e prazos de segurança de produtos fitofarmacêuticos mudam com frequência: confirma sempre o rótulo e a legislação em vigor antes de aplicar.',
+  food:'A conservação de alimentos envolve risco de intoxicação. Cumpre com rigor os parâmetros de higiene, acidez, temperatura e tempo, e descarta em caso de dúvida.',
+};
+const KB_GROUP_ICONS = {1:'🌱',2:'🌳',3:'🟤',4:'💧',5:'☀️',6:'🐛',7:'🌿',8:'🌾',9:'🧑‍⚕️',10:'🐔',11:'🛠️',12:'🫙'};
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function kbNorm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function kbLoadJson(file){ return fetch('kb/'+file).then(r=>{ if(!r.ok) throw new Error(file+' ('+r.status+')'); return r.json(); }); }
+function kbFail(e){ kbLibError = 'Não foi possível carregar a biblioteca ('+(e&&e.message||e)+'). Verifica a ligação e tenta de novo.'; renderKbLibrary(); }
+function kbEnsureBase(cb){
+  if(KB_LIB.index && KB_LIB.common){ cb(); return; }
+  Promise.all([kbLoadJson('index.json'), kbLoadJson('common.json')]).then(([i,c])=>{ KB_LIB.index=i; KB_LIB.common=c; cb(); }).catch(kbFail);
+}
+function kbEnsureVol(n, cb){
+  if(KB_LIB.vols[n]){ cb(); return; }
+  kbLoadJson('v'+String(n).padStart(2,'0')+'.json').then(v=>{ KB_LIB.vols[n]=v; cb(); }).catch(kbFail);
+}
+function kbEnsureExtra(key, file, cb){
+  if(KB_LIB[key]){ cb(); return; }
+  kbLoadJson(file).then(d=>{ KB_LIB[key]=d; cb(); }).catch(kbFail);
+}
+function kbGo(view, p){
+  p = p||{};
+  kbLib = Object.assign({view, group:kbLib.group, vol:null, ch:null, unit:null, ap:null, q:kbLib.q, sec:null}, p);
+  kbLibError = null;
+  renderKbLibrary();
+  const mc = document.getElementById('mainContent'); if(mc) mc.scrollTo({top:0});
+}
+function kbGroupOf(vn){ return KB_LIB.index.vols.find(v=>v.n===vn).g; }
+function kbVolMeta(vn){ return KB_LIB.index.vols.find(v=>v.n===vn); }
+
+function kbTable(header, rows){
+  const th = header? `<thead><tr>${header.map(h=>`<th class="text-left text-xs pb-1 pr-3" style="color:var(--ink-faint)">${esc(h)}</th>`).join('')}</tr></thead>` : '';
+  return `<div class="overflow-x-auto mb-3"><table class="w-full text-sm" style="border-collapse:collapse">${th}<tbody>${rows.map(r=>`<tr style="border-top:1px solid var(--border)">${r.map((c,i)=>`<td class="py-1.5 pr-3 align-top ${i===0?'font-semibold':''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function kbBlocks(bl){
+  return bl.map(b=>{
+    switch(b[0]){
+      case 'p': return `<p class="text-sm mb-3" style="line-height:1.65">${esc(b[1])}</p>`;
+      case 'w': return `<div class="p-3 rounded-xl mb-3 text-xs" style="background:var(--red-100);color:var(--red-600);line-height:1.55">${esc(b[1])}</div>`;
+      case 'c': return `<div class="p-3 rounded-xl mb-3 text-sm" style="background:var(--green-100);line-height:1.55">${esc(b[1])}</div>`;
+      case 'h': return `<h4 class="display font-semibold mt-4 mb-2" style="font-size:15px">${esc(b[1])}</h4>`;
+      case 'h3': return `<h5 class="font-semibold mt-3 mb-1 text-sm">${esc(b[1])}</h5>`;
+      case 's': case 's2': return `<p class="text-xs mb-2" style="color:var(--ink-faint);line-height:1.5">${esc(b[1])}</p>`;
+      case 'u': return /^https?:\/\//.test(b[1]) ? `<p class="text-xs mb-3"><a href="${esc(b[1])}" target="_blank" rel="noopener noreferrer" style="color:var(--blue-600);word-break:break-all">${esc(b[1])}</a></p>` : `<p class="text-xs mb-3" style="word-break:break-all">${esc(b[1])}</p>`;
+      case 'ul': return `<ul class="text-sm mb-3 pl-5" style="list-style:disc;line-height:1.6">${b[1].map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+      case 'ol': return `<ol class="text-sm mb-3 pl-5" style="list-style:decimal;line-height:1.6">${b[1].map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`;
+      case 't': return kbTable(b[1], b[2]);
+    }
+    return '';
+  }).join('');
+}
+function kbFill(tpl, vals){ return tpl.replace(/\{(\w+)\}/g, (m,k)=>vals[k]==null?'':vals[k]); }
+function kbUnitTexts(u){
+  const c = KB_LIB.common, o={}, i={};
+  u.o.forEach((x,k)=>{ o['o'+k]=x; });
+  u.i.forEach((x,k)=>{ i['i'+k]=x; });
+  if(u.i.length===3) i.i3 = u.i[2];
+  return {lei: u.lei||kbFill(c.leitura,o), por: u.por||kbFill(c.porta,i), fin: u.f+c.fin_tail};
+}
+function kbCrumbs(items){
+  return `<div class="flex flex-wrap items-center gap-1 text-xs mb-3" style="color:var(--ink-faint)">${items.map((it,i)=>it.go? `<button class="underline" onclick="${it.go}">${esc(it.t)}</button>${i<items.length-1?'<span>›</span>':''}` : `<span>${esc(it.t)}</span>`).join(' ')}</div>`;
+}
+function kbDevBadge(v){
+  return v.dev? `<span class="pill pill-green" style="font-size:10px">Conteúdo desenvolvido</span>` : `<span class="pill pill-neutral" style="font-size:10px" title="Os passos e o método são um modelo comum; o texto específico do tema está por desenvolver">Estrutura-guia</span>`;
+}
+function kbSafetyBanner(g){
+  const s = g && KB_SAFETY[g.safety];
+  return s? `<div class="p-3 rounded-xl mb-4 text-xs" style="background:var(--yellow-100);color:var(--yellow-600);line-height:1.55">⚠️ ${esc(s)}</div>` : '';
+}
+
+function renderKbLibrary(){
+  const el = document.getElementById('panel-conhecimento');
+  if(kbLibError){ el.innerHTML = kbModeBar() + `<div class="card p-6 text-sm" style="color:var(--red-600)">${esc(kbLibError)} <button class="btn btn-outline btn-sm ml-2" onclick="kbLibError=null;renderKbLibrary()">Tentar de novo</button></div>`; return; }
+  if(!KB_LIB.index || !KB_LIB.common){
+    el.innerHTML = kbModeBar() + `<div class="card p-6 text-sm" style="color:var(--ink-faint)">A carregar a biblioteca…</div>`;
+    kbEnsureBase(renderKbLibrary);
+    return;
+  }
+  const ix = KB_LIB.index;
+  const totalUnits = ix.vols.reduce((s,v)=>s+v.units,0);
+  const left = `
+    <div class="card p-3">
+      <div class="flex gap-1 mb-2">
+        <input class="field" id="kbLibSearch" placeholder="Procurar em ${totalUnits.toLocaleString('pt-PT')} unidades…" value="${esc(kbLib.q)}" onkeydown="if(event.key==='Enter') kbSearchGo(this.value)">
+        <button class="btn btn-primary btn-sm" onclick="kbSearchGo(document.getElementById('kbLibSearch').value)">Procurar</button>
+      </div>
+      <div class="flex flex-wrap gap-1 mb-3">
+        <button class="btn btn-sm ${kbLib.view==='home'?'btn-primary':'btn-ghost'}" onclick="kbGo('home',{group:null})">🏠 Visão geral</button>
+        <button class="btn btn-sm ${kbLib.view==='glossary'?'btn-primary':'btn-ghost'}" onclick="kbGo('glossary')">📖 Glossário</button>
+        <button class="btn btn-sm ${kbLib.view==='sources'?'btn-primary':'btn-ghost'}" onclick="kbGo('sources')">🔗 Fontes</button>
+      </div>
+      <div class="flex flex-col gap-1" style="max-height:62vh;overflow-y:auto">
+        ${ix.groups.map(g=>{
+          const open = kbLib.group===g.id;
+          return `<div>
+            <button class="w-full text-left px-3 py-2 rounded-lg text-sm flex items-center justify-between" style="background:${open?'var(--green-100)':'transparent'}" onclick="kbGo('group',{group:${g.id}})">
+              <span class="font-semibold">${KB_GROUP_ICONS[g.id]||''} ${esc(g.title)}</span><span class="text-xs" style="color:var(--ink-faint)">${g.vols.length}</span>
+            </button>
+            ${open? g.vols.map(vn=>{ const v=kbVolMeta(vn); return `<button class="w-full text-left pl-8 pr-2 py-1.5 rounded-lg text-xs" style="background:${kbLib.vol===vn?'var(--surface-2)':'transparent'};color:var(--ink-soft)" onclick="kbGo('volume',{group:${g.id},vol:${vn}})">Vol. ${vn} · ${esc(v.title)}</button>`; }).join('') : ''}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  el.innerHTML = kbModeBar() + `<div class="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4" style="align-items:start">${left}<div class="card p-6" id="kbLibMain"></div></div>`;
+  renderKbMain();
+}
+
+function renderKbMain(){
+  const m = document.getElementById('kbLibMain'); if(!m) return;
+  const ix = KB_LIB.index, v = kbLib.view;
+  if(v==='home') { m.innerHTML = kbHomeHTML(); return; }
+  if(v==='group') { m.innerHTML = kbGroupHTML(); return; }
+  if(v==='glossary'){ if(!KB_LIB.glossary){ m.innerHTML = kbLoading(); kbEnsureExtra('glossary','glossary.json',()=>{ if(kbLib.view==='glossary') renderKbMain(); }); return; } m.innerHTML = kbGlossaryHTML(); return; }
+  if(v==='sources'){ if(!KB_LIB.sources){ m.innerHTML = kbLoading(); kbEnsureExtra('sources','sources.json',()=>{ if(kbLib.view==='sources') renderKbMain(); }); return; } m.innerHTML = kbSourcesHTML(); return; }
+  if(v==='search'){ if(!KB_LIB.search){ m.innerHTML = kbLoading('A preparar a pesquisa (só na primeira vez)…'); kbEnsureExtra('search','search.json',()=>{ if(kbLib.view==='search') renderKbMain(); }); return; } m.innerHTML = kbSearchHTML(); return; }
+  if(kbLib.vol==null){ m.innerHTML = kbHomeHTML(); return; }
+  if(!KB_LIB.vols[kbLib.vol]){ m.innerHTML = kbLoading('A abrir o volume…'); const want=kbLib.vol; kbEnsureVol(want, ()=>{ if(kbLib.vol===want) renderKbMain(); }); return; }
+  const vol = KB_LIB.vols[kbLib.vol];
+  if(v==='volume') m.innerHTML = kbVolumeHTML(vol);
+  else if(v==='unit') m.innerHTML = kbUnitHTML(vol);
+  else if(v==='appendix') m.innerHTML = kbAppendixHTML(vol);
+  else if(v==='front') m.innerHTML = kbFrontHTML(vol);
+}
+function kbLoading(t){ return `<p class="text-sm" style="color:var(--ink-faint)">${esc(t||'A carregar…')}</p>`; }
+
+function kbHomeHTML(){
+  const ix = KB_LIB.index;
+  const totalUnits = ix.vols.reduce((s,x)=>s+x.units,0);
+  return `
+    <h2 class="display font-semibold mb-1" style="font-size:22px">Biblioteca técnica</h2>
+    <p class="text-sm mb-4" style="color:var(--ink-soft)">${ix.vols.length} volumes · ${ix.groups.length} áreas · ${totalUnits.toLocaleString('pt-PT')} unidades técnicas, com glossário e fontes institucionais. Pensada para consulta no campo, com procedimentos, indicadores e limites de cada tema.</p>
+    <div class="p-3 rounded-xl mb-3 text-xs" style="background:var(--yellow-100);color:var(--yellow-600);line-height:1.55">⚠️ Material de apoio educativo, com foco em Portugal e clima mediterrânico. Doses, autorizações, limites legais e temas de saúde humana ou animal exigem confirmação em fonte oficial vigente e, quando aplicável, a orientação de um profissional (agrónomo, médico ou veterinário) antes de decidir.</div>
+    <div class="p-3 rounded-xl mb-4 text-xs" style="background:var(--surface-2);line-height:1.55">${ix.vols.filter(x=>x.dev).length} volumes com conteúdo desenvolvido (${ix.vols.filter(x=>x.dev).map(x=>'Vol. '+x.n).join(', ')}) e ${ix.vols.filter(x=>!x.dev).length} com <b>estrutura-guia</b>: capítulos e temas definidos, com fichas que seguem um modelo comum (passos, indicadores e método de decisão gerais). O texto específico de cada tema está em preparação.</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      ${ix.groups.map(g=>`<button class="text-left p-4 rounded-xl" style="background:var(--surface-2)" onclick="kbGo('group',{group:${g.id}})">
+        <div class="font-semibold mb-1">${KB_GROUP_ICONS[g.id]||''} ${esc(g.title)}</div>
+        <div class="text-xs mb-2" style="color:var(--ink-soft)">${esc(g.desc)}</div>
+        <div class="text-xs" style="color:var(--ink-faint)">${g.vols.length} volume${g.vols.length>1?'s':''} · ${g.vols.reduce((s,vn)=>s+kbVolMeta(vn).units,0)} unidades</div>
+      </button>`).join('')}
+    </div>`;
+}
+function kbGroupHTML(){
+  const ix = KB_LIB.index, g = ix.groups.find(x=>x.id===kbLib.group);
+  if(!g) return kbHomeHTML();
+  return kbCrumbs([{t:'Biblioteca',go:"kbGo('home',{group:null})"},{t:g.title}]) + `
+    <h2 class="display font-semibold mb-1" style="font-size:22px">${KB_GROUP_ICONS[g.id]||''} ${esc(g.title)}</h2>
+    <p class="text-sm mb-4" style="color:var(--ink-soft)">${esc(g.desc)}</p>
+    ${kbSafetyBanner(g)}
+    <div class="flex flex-col gap-2">
+      ${g.vols.map(vn=>{ const v=kbVolMeta(vn); return `<button class="text-left p-3 rounded-xl" style="background:var(--surface-2)" onclick="kbGo('volume',{group:${g.id},vol:${vn}})">
+        <div class="font-semibold text-sm">Vol. ${vn} · ${esc(v.full)} ${kbDevBadge(v)}</div>
+        <div class="text-xs" style="color:var(--ink-faint)">${esc(v.sub)}</div>
+        <div class="text-xs mt-1" style="color:var(--ink-faint)">${v.ch.length} capítulos · ${v.units} unidades · ${v.ap.length} apêndices${v.photos? ' · '+v.photos+' ilustrações':''}</div>
+      </button>`; }).join('')}
+    </div>`;
+}
+function kbVolumeHTML(vol){
+  const meta = kbVolMeta(vol.n), g = KB_LIB.index.groups.find(x=>x.id===meta.g);
+  const crumbs = kbCrumbs([{t:'Biblioteca',go:"kbGo('home',{group:null})"},{t:g.title,go:`kbGo('group',{group:${g.id}})`},{t:'Vol. '+vol.n}]);
+  const fronts = vol.front.map((s,i)=>`<button class="text-left px-3 py-2 rounded-lg text-sm" style="background:var(--surface-2)" onclick="kbGo('front',{group:${g.id},vol:${vol.n},sec:${i}})">${esc(s.title)}</button>`).join('');
+  return crumbs + `
+    <div class="mb-1"><span class="pill pill-neutral">${KB_GROUP_ICONS[g.id]||''} ${esc(g.title)}</span></div>
+    <h2 class="display font-semibold mt-2 mb-1" style="font-size:22px">Vol. ${vol.n} · ${esc(vol.full)}</h2>
+    <p class="text-sm mb-2" style="color:var(--ink-soft)">${esc(vol.sub)}</p>
+    <div class="mb-4">${kbDevBadge(meta)}</div>
+    ${kbSafetyBanner(g)}
+    ${meta.dev? '' : `<div class="p-3 rounded-xl mb-4 text-xs" style="background:var(--surface-2);line-height:1.55">Este volume tem <b>estrutura-guia</b>: os temas e a organização estão definidos, mas as fichas seguem um modelo comum e o texto específico de cada tema ainda está por desenvolver. Usa-o como roteiro de estudo, não como fonte de doses ou decisões.</div>`}
+    <div class="flex flex-wrap gap-2 mb-4">${fronts}</div>
+    ${vol.ch.map(c=>`
+      <div class="mb-4">
+        <h3 class="display font-semibold mb-1" style="font-size:16px">Capítulo ${c.n} · ${esc(c.title)}</h3>
+        <details class="mb-2"><summary class="text-xs cursor-pointer" style="color:var(--ink-faint)">Introdução do capítulo</summary><div class="mt-2">${kbBlocks(c.b)}</div></details>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+          ${c.u.map(u=>`<button class="text-left px-3 py-2 rounded-lg text-sm" style="background:var(--surface-2)" onclick="kbGo('unit',{group:${g.id},vol:${vol.n},ch:${c.n},unit:${u.n}})"><span class="mono text-xs" style="color:var(--ink-faint)">${String(u.n).padStart(2,'0')}</span> ${esc(u.t)}${u.ph?' <span title="Tem ilustração">🖼️</span>':''}</button>`).join('')}
+        </div>
+      </div>`).join('')}
+    <h3 class="display font-semibold mb-2 mt-6" style="font-size:16px">Apêndices</h3>
+    <div class="flex flex-col gap-1 mb-4">${vol.ap.map((a,i)=>`<button class="text-left px-3 py-2 rounded-lg text-sm" style="background:var(--surface-2)" onclick="kbGo('appendix',{group:${g.id},vol:${vol.n},ap:${i}})"><span class="font-semibold">${esc(a.k)}.</span> ${esc(a.title)}</button>`).join('')}
+    ${vol.back.map((s,i)=>`<button class="text-left px-3 py-2 rounded-lg text-sm" style="background:var(--surface-2)" onclick="kbGo('appendix',{group:${g.id},vol:${vol.n},ap:${100+i}})">${esc(s.title)}</button>`).join('')}</div>`;
+}
+function kbFrontHTML(vol){
+  const meta = kbVolMeta(vol.n), g = KB_LIB.index.groups.find(x=>x.id===meta.g), s = vol.front[kbLib.sec];
+  if(!s) return kbVolumeHTML(vol);
+  return kbCrumbs([{t:'Biblioteca',go:"kbGo('home',{group:null})"},{t:g.title,go:`kbGo('group',{group:${g.id}})`},{t:'Vol. '+vol.n,go:`kbGo('volume',{group:${g.id},vol:${vol.n}})`},{t:s.title}]) + `
+    <h2 class="display font-semibold mb-3" style="font-size:20px">${esc(s.title)}</h2>${kbBlocks(s.b)}`;
+}
+function kbAppendixHTML(vol){
+  const meta = kbVolMeta(vol.n), g = KB_LIB.index.groups.find(x=>x.id===meta.g);
+  const isBack = kbLib.ap>=100, a = isBack? vol.back[kbLib.ap-100] : vol.ap[kbLib.ap];
+  if(!a) return kbVolumeHTML(vol);
+  return kbCrumbs([{t:'Biblioteca',go:"kbGo('home',{group:null})"},{t:g.title,go:`kbGo('group',{group:${g.id}})`},{t:'Vol. '+vol.n,go:`kbGo('volume',{group:${g.id},vol:${vol.n}})`},{t:isBack? a.title : 'Apêndice '+a.k}]) + `
+    <h2 class="display font-semibold mb-3" style="font-size:20px">${isBack? '' : esc(a.k)+'. '}${esc(a.title)}</h2>
+    ${kbBlocks(a.b)}
+    ${(a.sub||[]).map(s=>`<h3 class="display font-semibold mt-5 mb-2" style="font-size:16px">${esc(s.title)}</h3>${kbBlocks(s.b)}`).join('')}`;
+}
+function kbUnitHTML(vol){
+  const meta = kbVolMeta(vol.n), g = KB_LIB.index.groups.find(x=>x.id===meta.g);
+  const ch = vol.ch.find(c=>c.n===kbLib.ch), u = ch && ch.u.find(x=>x.n===kbLib.unit);
+  if(!u) return kbVolumeHTML(vol);
+  const T = kbUnitTexts(u), C = KB_LIB.common;
+  const flat = vol.ch.flatMap(c=>c.u.map(x=>({ch:c.n,u:x.n,t:x.t})));
+  const pos = flat.findIndex(x=>x.u===u.n);
+  const prev = flat[pos-1], next = flat[pos+1];
+  const nav = (p,label)=> p? `<button class="btn btn-outline btn-sm" onclick="kbGo('unit',{group:${g.id},vol:${vol.n},ch:${p.ch},unit:${p.u}})">${label}</button>` : '<span></span>';
+  return kbCrumbs([{t:'Biblioteca',go:"kbGo('home',{group:null})"},{t:g.title,go:`kbGo('group',{group:${g.id}})`},{t:'Vol. '+vol.n,go:`kbGo('volume',{group:${g.id},vol:${vol.n}})`},{t:'Unidade '+String(u.n).padStart(2,'0')}]) + `
+    <div class="text-xs mb-1" style="color:var(--ink-faint)">Vol. ${vol.n} · Capítulo ${ch.n} · ${esc(ch.title)}</div>
+    <h2 class="display font-semibold mb-3" style="font-size:22px">${esc(u.t)}</h2>
+    ${kbSafetyBanner(g)}
+    ${u.g? `<div class="p-3 rounded-xl mb-4 text-xs" style="background:var(--surface-2);line-height:1.55">Ficha-guia: segue o modelo comum da biblioteca. Os passos do procedimento e o método de decisão são gerais e o texto específico deste tema está por desenvolver — não uses esta ficha como fonte de doses ou de decisões.</div>` : ''}
+    ${u.ph? `<div class="flex flex-col sm:flex-row gap-3 mb-4 p-3 rounded-xl" style="background:var(--surface-2)">
+      <img src="kb/img/${esc(u.ph.f)}" alt="${esc(u.ph.c)}" loading="lazy" style="width:180px;max-width:100%;border-radius:10px;object-fit:cover">
+      <div class="text-xs" style="color:var(--ink-soft);line-height:1.55"><div class="font-semibold mb-1">${esc(u.ph.c)}</div>${esc(C.photo_note)}${u.ph.v? `<div class="mt-2"><b>Verificação antes da ação:</b> ${esc(u.ph.v)}</div>`:''}</div>
+    </div>` : ''}
+    <h4 class="display font-semibold mb-1" style="font-size:15px">Finalidade</h4>
+    <p class="text-sm mb-4" style="line-height:1.65">${esc(T.fin)}</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+      <div><h4 class="display font-semibold mb-1" style="font-size:15px">O que observar e medir</h4><ul class="text-sm pl-5 mb-3" style="list-style:disc;line-height:1.6">${u.o.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div><h4 class="display font-semibold mb-1" style="font-size:15px">Procedimento de campo</h4><ol class="text-sm pl-5 mb-3" style="list-style:decimal;line-height:1.6">${u.p.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></div>
+    </div>
+    <h4 class="display font-semibold mb-1" style="font-size:15px">Indicadores para acompanhar</h4>
+    <div class="flex flex-wrap gap-2 mb-1">${u.i.map(x=>`<span class="pill pill-neutral">${esc(x)}</span>`).join('')}</div>
+    <p class="text-xs mb-4" style="color:var(--ink-faint)">${esc(C.ind_note)}</p>
+    <div class="p-3 rounded-xl mb-4 text-sm" style="background:var(--red-100);color:var(--red-600);line-height:1.55"><b>Limite e precaução.</b> ${esc(u.l)}</div>
+    <details class="mb-4"><summary class="text-sm font-semibold cursor-pointer">Método completo de decisão e registo</summary>
+      <div class="mt-3">
+        <h5 class="font-semibold text-sm mb-1">Leitura integrada</h5><p class="text-sm mb-3" style="line-height:1.65">${esc(T.lei)}</p>
+        <h5 class="font-semibold text-sm mb-1">Plano mínimo de amostragem</h5><p class="text-sm mb-3" style="line-height:1.65">${esc(C.plano)}</p>
+        <h5 class="font-semibold text-sm mb-1">Porta de decisão</h5><p class="text-sm mb-3" style="line-height:1.65">${esc(T.por)}</p>
+        <p class="text-xs" style="color:var(--ink-faint);line-height:1.5">${esc(C.registo)}</p>
+      </div>
+    </details>
+    <div class="flex items-center justify-between gap-2">${nav(prev,'← '+(prev?esc(prev.t).slice(0,32):''))}${nav(next,(next?esc(next.t).slice(0,32):'')+' →')}</div>`;
+}
+
+function kbSearchGo(q){ kbLib.q = q||''; kbLib.view='search'; kbLibError=null; renderKbLibrary(); }
+function kbSearchHTML(){
+  const q = kbLib.q.trim(), toks = kbNorm(q).split(/\s+/).filter(t=>t.length>1);
+  if(!toks.length) return `<h2 class="display font-semibold mb-2" style="font-size:20px">Pesquisa</h2><p class="text-sm" style="color:var(--ink-faint)">Escreve pelo menos uma palavra (2 ou mais letras) e carrega em Procurar.</p>`;
+  const res = [];
+  for(const e of KB_LIB.search){
+    const hay = e[4], title = kbNorm(e[3]);
+    if(!toks.every(t=>hay.includes(t))) continue;
+    let score = 0; toks.forEach(t=>{ if(title.includes(t)) score += 5; if(title.startsWith(t)) score += 2; score += 1; });
+    res.push({e, score});
+  }
+  res.sort((a,b)=>b.score-a.score || a.e[0]-b.e[0] || a.e[1]-b.e[1]);
+  const shown = res.slice(0,80);
+  const gl = (KB_LIB.glossary||[]).filter(g=>toks.every(t=>kbNorm(g.t+' '+g.d).includes(t))).slice(0,6);
+  const volHits = KB_LIB.index.vols.filter(v=>toks.every(t=>kbNorm(v.full+' '+v.sub).includes(t)));
+  if(!KB_LIB.glossary){ kbEnsureExtra('glossary','glossary.json',()=>{ if(kbLib.view==='search') renderKbMain(); }); }
+  return `<h2 class="display font-semibold mb-1" style="font-size:20px">Resultados para “${esc(q)}”</h2>
+    <p class="text-xs mb-3" style="color:var(--ink-faint)">${res.length} unidade${res.length===1?'':'s'} encontrada${res.length===1?'':'s'}${res.length>80?' (mostro as 80 mais relevantes)':''}</p>
+    ${volHits.length? `<div class="mb-3">${volHits.map(v=>`<button class="pill pill-blue mr-1 mb-1" onclick="kbGo('volume',{group:${v.g},vol:${v.n}})">Vol. ${v.n} · ${esc(v.title)}</button>`).join('')}</div>` : ''}
+    ${gl.length? `<div class="mb-3 p-3 rounded-xl" style="background:var(--surface-2)"><div class="text-xs font-semibold mb-1">No glossário</div>${gl.map(g=>`<div class="text-sm"><b>${esc(g.t)}</b> — ${esc(g.d)}</div>`).join('')}</div>` : ''}
+    <div class="flex flex-col gap-1">${shown.map(({e})=>{ const [vn,un,cn,title] = e; const v = kbVolMeta(vn);
+      return `<button class="text-left px-3 py-2 rounded-lg text-sm" style="background:var(--surface-2)" onclick="kbGo('unit',{group:${v.g},vol:${vn},ch:${cn},unit:${un}})"><div class="font-semibold">${esc(title)}</div><div class="text-xs" style="color:var(--ink-faint)">Vol. ${vn} · ${esc(v.title)} · Capítulo ${cn}</div></button>`; }).join('') || '<p class="text-sm" style="color:var(--ink-faint)">Sem resultados. Tenta outras palavras.</p>'}</div>`;
+}
+let kbGlossQ = '';
+function kbGlossFilter(v){ kbGlossQ=v; const l=document.getElementById('kbGlossList'); if(l) l.innerHTML = kbGlossItems(); }
+function kbGlossItems(){
+  const toks = kbNorm(kbGlossQ).split(/\s+/).filter(Boolean);
+  const list = KB_LIB.glossary.filter(g=>toks.every(t=>kbNorm(g.t+' '+g.d).includes(t)));
+  return list.map(g=>`<div class="py-2" style="border-top:1px solid var(--border)"><div class="font-semibold text-sm">${esc(g.t)}</div><div class="text-sm" style="line-height:1.55">${esc(g.d)}</div><div class="text-xs mt-1" style="color:var(--ink-faint)">${g.v.map(n=>`<button class="underline mr-2" onclick="kbGo('volume',{group:${kbGroupOf(n)},vol:${n}})">Vol. ${n}</button>`).join('')}</div></div>`).join('') || '<p class="text-sm" style="color:var(--ink-faint)">Sem resultados.</p>';
+}
+function kbGlossaryHTML(){
+  return `<h2 class="display font-semibold mb-1" style="font-size:20px">Glossário</h2>
+    <p class="text-xs mb-3" style="color:var(--ink-faint)">${KB_LIB.glossary.length} termos reunidos dos apêndices de todos os volumes.</p>
+    <input class="field mb-3" placeholder="Filtrar termos…" value="${esc(kbGlossQ)}" oninput="kbGlossFilter(this.value)">
+    <div id="kbGlossList">${kbGlossItems()}</div>`;
+}
+function kbSourcesHTML(){
+  return `<h2 class="display font-semibold mb-1" style="font-size:20px">Fontes e leituras de aprofundamento</h2>
+    <p class="text-xs mb-3" style="color:var(--ink-faint)">${KB_LIB.sources.length} fontes institucionais e científicas citadas nos volumes. As ligações servem para confirmar edições, métodos e enquadramentos que evoluem.</p>
+    ${KB_LIB.sources.map(s=>`<div class="py-2" style="border-top:1px solid var(--border)"><div class="font-semibold text-sm">${esc(s.name)}</div>${s.desc?`<div class="text-xs" style="color:var(--ink-soft)">${esc(s.desc)}</div>`:''}${/^https?:\/\//.test(s.url)?`<a class="text-xs" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" style="color:var(--blue-600);word-break:break-all">${esc(s.url)}</a>`:''}<div class="text-xs mt-1" style="color:var(--ink-faint)">${s.v.map(n=>`<button class="underline mr-2" onclick="kbGo('volume',{group:${kbGroupOf(n)},vol:${n}})">Vol. ${n}</button>`).join('')}</div></div>`).join('')}`;
+}
+
 function renderKbArticle(a){
   const cat = KB_CATEGORIES.find(c=>c.id===a.cat);
   const warn = (a.cat==='saude-humana'||a.cat==='saude-animal')? `<div class="p-3 rounded-xl mb-4 text-xs" style="background:var(--yellow-100);color:var(--yellow-600)">⚠️ Informação de caráter tradicional/educativo — não substitui o parecer de um ${a.cat==='saude-humana'?'médico':'médico veterinário'}. Em caso de doença grave, persistente, ou em crianças, grávidas ou animais debilitados, procura sempre acompanhamento profissional.</div>` : '';
